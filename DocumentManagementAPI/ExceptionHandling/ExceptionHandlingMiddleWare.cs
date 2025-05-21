@@ -35,7 +35,7 @@ namespace DocumentManagementAPI.ExceptionHandling
                     error= env.IsDevelopment() ? ex.Message : "An error occurred",
                     type = ex.GetType().Name
                 };
-                 await context.Response.WriteAsJsonAsync(respons);
+                await context.Response.WriteAsJsonAsync(respons);
             }
         }
     }
