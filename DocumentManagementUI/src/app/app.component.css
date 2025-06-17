@@ -1,0 +1,61 @@
+.greet {
+  min-height: 50vh;
+  width: 100%;
+  background: linear-gradient(135deg, #1e3c72, #2a5298); /* Gradient background */
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+  border-radius: 0 0 16px 16px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+.greet-title {
+  font-size: 2rem;
+  margin: 0;
+  font-weight: 300;
+  letter-spacing: 2px;
+}
+
+.greet-app-name {
+  font-size: 3rem;
+  margin: 10px 0;
+  font-weight: 700;
+  color: #ffffff;
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.greet-subtitle {
+  font-size: 1.1rem;
+  margin-top: 10px;
+  opacity: 0.9;
+}
+
+.app-footer {
+  background-color: #1e3c72;
+  color: #ffffff;
+  text-align: center;
+  padding: 16px 0;
+  font-size: 0.95rem;
+  margin-top: 40px;
+  border-top: 4px solid #0072ff;
+}
+
+  .app-footer p {
+    margin: 0;
+    letter-spacing: 0.5px;
+  }
+
+section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px;
+}
+

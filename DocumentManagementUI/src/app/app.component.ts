@@ -1,10 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { HeaderComponent } from './header/header.component';
+import { CradComponent } from './crad/crad.component';
+import { DUMMY_DATA_CARD } from '../../Dummy_Data/Dummy_Data';
+import { CommonModule } from '@angular/common';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  standalone: false,
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
+  imports: [HeaderComponent, CommonModule, RouterOutlet]
 })
 export class AppComponent {
   title = 'DocumentManagementUI';

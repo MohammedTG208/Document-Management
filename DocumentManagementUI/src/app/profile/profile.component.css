@@ -1,0 +1,49 @@
+
+.profile-container {
+  display: flex;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+
+.profile-card {
+  width: 100%;
+  max-width: 400px;
+}
+
+
+.profile-info {
+  font-family: Arial, sans-serif;
+}
+
+.document-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1e3c72;
+  margin-bottom: 12px;
+}
+
+.document-user {
+  font-size: 1rem;
+  color: #555;
+  margin-bottom: 8px;
+}
+
+.document-btn {
+  display: block;
+  width: 100%;
+  margin-top: 16px;
+  padding: 10px 0;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  color: white;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+  .document-btn:hover {
+    background: linear-gradient(90deg, #0099cc, #0055cc);
+  }

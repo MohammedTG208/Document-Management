@@ -1,0 +1,26 @@
+<form (ngSubmit)="onSubmit()">
+<div class="message-card">
+  <div class="message-header">
+    <input type="text"
+           placeholder="Username"
+           class="input-username"
+           [(ngModel)]="username"
+           name="username"
+           required
+           />
+    <input type="date"
+           class="input-date" [(ngModel)]="date" name="date"
+           required
+           />
+  </div>
+  <textarea rows="2"
+            name="message"
+            placeholder="Message"
+            class="message-textarea" [(ngModel)]="message" required></textarea>
+</div>
+<p style="background-color:red; font-size:large">{{wrongInput}}</p>
+<div>
+  <button class="download-button" type="submit" (click)="AddNewMessageFromChild()" style="background-color:red;">Add</button>
+</div>
+<ng-template #close></ng-template>
+</form>

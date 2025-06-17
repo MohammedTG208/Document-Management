@@ -1,0 +1,28 @@
+<div class="login-wrapper">
+  <div class="login-box">
+    <!-- Left Image Section -->
+    <div class="login-image">
+      <div class="image-text">Welcome Back 👋</div>
+      <img src="assets/login.jpg" alt="Login" />
+    </div>
+
+
+    <!-- Right Form Section -->
+    <div class="login-form">
+      <form (ngSubmit)="onSubmit()">
+        <h2 class="form-title">Login</h2>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input id="email" type="email" name="email" [(ngModel)]="email" required />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input id="password" type="password" name="password" [(ngModel)]="password" required />
+        </div>
+
+        <button type="submit">Sign In</button>
+      </form>
+    </div>
+  </div>
+</div>

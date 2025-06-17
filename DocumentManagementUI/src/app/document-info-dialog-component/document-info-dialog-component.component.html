@@ -1,0 +1,33 @@
+<section style="width: 100vw; height: 100vh; position: fixed; top: 0; left: 0; z-index: 1000000; background-color: rgba(0, 0, 0, 0.5);" (click)="onCloseClick()">
+  <div class="dialog-container" (click)="$event.stopPropagation()">
+    <button class="close-button" (click)="onCloseClick()">×</button>
+
+    <h2 class="dialog-title">{{document.folderName}}</h2>
+    <p class="dialog-date">Created on: {{document.dateAdded | date: 'fullDate'}}</p>
+
+    <div class="messages-container" *ngFor="let msg of document.messages">
+      <div class="message-card">
+        <div class="message-header">
+          <span class="username">{{ msg.username }}</span>
+          <span class="date">{{ msg.dateAdded | date: 'short'}}</span>
+        </div>
+        <p class="message-text">{{ msg.message }}</p>
+      </div>
+    </div>
+    <div *ngIf="tryAdd==true; else remove">
+      <app-add-message (messageFromChildToParent)="reseveNewMassage($event)"
+                       [closeMessage]="tryAdd">
+      </app-add-message>
+    </div>
+    <ng-template #remove></ng-template>
+    <div class="btn-container">
+      <button class="download-button" style=" margin-bottom: 12px; margin-top: 10px;">Download</button>
+      <div *ngIf="tryAdd==false; else isCancele">
+        <button class="download-button" (click)="AddMessage()">Add Message</button>
+      </div>
+      <ng-template #isCancele>
+        <button class="download-button" (click)="AddMessage()" style="background-color:red;">close</button>
+      </ng-template>
+    </div>
+  </div>
+</section>
