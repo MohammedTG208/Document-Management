@@ -9,16 +9,16 @@
 
     <!-- Right Form Section -->
     <div class="login-form">
-      <form (ngSubmit)="onSubmit()">
+      <form (ngSubmit)="onSubmit(email.value, password.value)" #form >
         <h2 class="form-title">Login</h2>
         <div class="form-group">
           <label for="email">Email</label>
-          <input id="email" type="email" name="email" [(ngModel)]="email" required />
+          <input id="email" type="email" name="email" #email required />
         </div>
 
         <div class="form-group">
           <label for="password">Password</label>
-          <input id="password" type="password" name="password" [(ngModel)]="password" required />
+          <input id="password" type="password" name="password" #password required />
         </div>
 
         <button type="submit">Sign In</button>

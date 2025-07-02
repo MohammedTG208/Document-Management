@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component,Input,output } from '@angular/core';
 import { AddMessageComponent } from './add-message/add-message.component';
-import { Message } from '../document-info-dialog-component/add-message/document.model';
+import { Message } from './add-message/document.model';
 import { DatePipe } from '@angular/common';
 import { DocumentInfoDilogService } from './document-info-dialog.Service';
 
@@ -35,7 +35,9 @@ export class DocumentInfoDialogComponentComponent {
   }
 
   AddMessage(): boolean {
-    return this.tryAdd= this.documentService.AddMessage(this.tryAdd);
+    return this.tryAdd = this.documentService.AddMessage(this.tryAdd);
   }
+
+  
   
 }

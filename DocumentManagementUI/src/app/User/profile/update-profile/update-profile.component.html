@@ -1,0 +1,34 @@
+<!-- Update Profile Button -->
+<button class="update-btn" (click)="toggleForm()">Update Profile</button>
+
+<!-- Update Profile Form -->
+<div class="profile-container" [class.show]="showForm">
+  <h2>Edit Your Profile</h2>
+
+  <div class="form-group">
+    <label for="firstName">First Name</label>
+    <input type="text" id="firstName" name="firstname" [(ngModel)]="profile.firstName" placeholder="John">
+  </div>
+
+  <div class="form-group">
+    <label for="lastName">Last Name</label>
+    <input type="text" id="lastName" name="lastname" [(ngModel)]="profile.lastName" placeholder="Doe">
+  </div>
+
+  <div class="form-group">
+    <label for="email">Email Address</label>
+    <input type="email" id="email" name="email" [(ngModel)]="profile.email" placeholder="john.doe@example.com">
+  </div>
+
+  <div class="form-group">
+    <label for="username">Username (cannot be changed)</label>
+    <input type="text" id="username" [value]="profile.username" readonly>
+  </div>
+
+  <div class="form-group">
+    <label for="phone">Phone Number</label>
+    <input type="tel" id="phone" name="phone" [(ngModel)]="profile.phone" placeholder="+966 567654345">
+  </div>
+
+  <button class="save-btn" (click)="saveChanges()">Save Changes</button>
+</div>

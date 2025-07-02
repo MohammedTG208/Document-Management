@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { DUMMY_DATA_CARD } from '../../../Dummy_Data/Dummy_Data';
 import { CradComponent } from '../crad/crad.component';
 import { CommonModule } from '@angular/common';
+import { ContactComponent } from './contact/contact.component';
 
 @Component({
   selector: 'app-home',
-  imports: [CradComponent, CommonModule],
+  imports: [CradComponent, CommonModule, ContactComponent],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css', '../app.component.css']
 })

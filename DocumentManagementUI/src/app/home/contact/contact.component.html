@@ -1,0 +1,9 @@
+<div class="contact-container" id="contact">
+  <h2>Contact Us</h2>
+  <form (ngSubmit)="onSubmit(name.value,subject.value,message.value)" id="contactForm">
+    <input type="text" #name placeholder="Your Name" required />
+    <input type="text" #subject placeholder="Subject" required />
+    <textarea rows="5" #message placeholder="Your Message" required></textarea>
+    <button type="submit">Send Message</button>
+  </form>
+</div>

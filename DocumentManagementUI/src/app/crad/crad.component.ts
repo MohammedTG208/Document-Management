@@ -1,5 +1,5 @@
 import { Component, Input,output } from '@angular/core';
-import { DocumentInfoDialogComponentComponent } from '../document-info-dialog-component/document-info-dialog-component.component';
+import { DocumentInfoDialogComponentComponent } from '../home/document-info-dialog-component/document-info-dialog-component.component';
 import { DUMMY_DATA_DOCUMENT } from '../../../Dummy_Data/DUMMY_DATA_FOLDERS';
 import { CommonModule } from '@angular/common';
 import { DatePipe } from '@angular/common';

@@ -3,10 +3,10 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HeaderComponent } from './header/header.component';
+import { HeaderComponent } from './home/header/header.component';
 import { CradComponent } from './crad/crad.component';
-import { DocumentInfoDialogComponentComponent } from './document-info-dialog-component/document-info-dialog-component.component';
-import { AddMessageComponent } from './document-info-dialog-component/add-message/add-message.component';
+import { DocumentInfoDialogComponentComponent } from './home/document-info-dialog-component/document-info-dialog-component.component';
+import { AddMessageComponent } from './home/document-info-dialog-component/add-message/add-message.component';
 
 @NgModule({
   // No declarations for standalone components
