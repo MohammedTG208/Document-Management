@@ -38,6 +38,7 @@ nav li a {
 .register {
   display: flex;
   gap: 10px;
+  
 }
 
   .register a {
@@ -47,6 +48,7 @@ nav li a {
     border: 1px solid #ffffff;
     border-radius: 6px;
     transition: background 0.3s ease, color 0.3s ease;
+    
   }
 
     .register a:hover {
