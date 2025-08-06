@@ -1,4 +1,6 @@
 ﻿using DocumentManagement.Data.Models;
+using DocumentManagementAPI.Dtos.DocumentDto;
+using DocumentManagementAPI.Dtos.UserDocumentDto;
 using Microsoft.EntityFrameworkCore;
 
 namespace DocumentManagementAPI.Repo
@@ -16,7 +18,7 @@ namespace DocumentManagementAPI.Repo
         public async Task DeleteDucoment(Document document)
         {
             dbContext.Documents.Remove(document);
-           await dbContext.SaveChangesAsync();
+            await dbContext.SaveChangesAsync();
         }
 
         public async Task<Document?> GetDocumnetById(int docId)
@@ -62,8 +64,17 @@ namespace DocumentManagementAPI.Repo
 
         public async Task SaveNewDocument(Document document)
         {
-            dbContext.Documents .Add(document);
+            dbContext.Documents.Add(document);
             await dbContext.SaveChangesAsync();
+        }
+
+
+        public async Task<ICollection<UserDocumentDto>> GetDocumentsByUserIdAsync(int userId,int folderId)
+        {
+            return await dbContext.Documents.Where(doc => doc.user.Id == userId && doc.Folder.Id==folderId).Select(doc=> new UserDocumentDto{
+                Id = doc.Id,
+                Name=doc.Name,
+            }).ToListAsync();
         }
     }
 }

@@ -32,7 +32,7 @@ namespace DocumentManagementAPI.Repo
 
         public async Task<List<Folder>> GetFoldersByUserId(int userId)
         {
-            return await dbContext.Folders.Where(f => f.Users.Id==userId && f.isPublic==true).ToListAsync();
+            return await dbContext.Folders.Where(f => f.Users.Id==userId).ToListAsync();
         }
 
         public async Task<List<Folder>> paganation(int pageNumber , int pageSize,string folderName)

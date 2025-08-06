@@ -1,0 +1,54 @@
+<div class="document-container">
+    <!-- Add Button -->
+    <button class="add-button" (click)="openDialog()">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+        </svg>
+    </button>
+
+   <!-- Document List -->
+@if (documents().length > 0) {
+  <div class="document-list">
+    @for (doc of documents(); track $index) {
+      <div class="document-item" (click)="displayMessageDialog()" style="cursor: pointer;">
+        <span class="document-name">{{ doc.name }}</span>
+        <div class="document-actions">
+          <button
+            (click)="downloadDocument(doc.id, doc.name)"
+            class="download-button"
+            title="Download"
+          >
+            ⬇️ Download
+          </button>
+          <button
+            (click)="deleteDocument(doc.id)"
+            class="delete-button"
+            title="Delete"
+          >
+            🗑️ Delete
+          </button>
+        </div>
+      </div>
+      @if (msgDialog) {
+        <app-message [documentId]="doc.id" (close)="displayMessageDialog()" ></app-message>
+      }
+    }
+  </div>
+}
+@else {
+    <div class="empty-message">
+        <svg xmlns="http://www.w3.org/2000/svg" class="empty-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2">
+            <path d="M3 3h18v18H3V3z" />
+            <line x1="8" y1="12" x2="16" y2="12" />
+        </svg>
+        <p class="empty-text">No documents found.</p>
+        <p class="empty-subtext">Click the + button to add your first document.</p>
+    </div>
+
+    }
+    @if (open) {
+    <app-document-dialog-add (close)="closeDialog()"></app-document-dialog-add>
+    }
+</div>

@@ -55,3 +55,21 @@ nav li a {
       background-color: #ffffff;
       color: #1e3c72;
     }
+
+
+  .register .logout-btn {
+    cursor: pointer;
+    background-color: transparent;
+    border: 1px solid #ffffff;
+    padding: 8px 12px;
+    border-radius: 6px;
+    color: #ffffff;
+    text-decoration: none;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+    .register .logout-btn:hover {
+      background-color: #ffffff;
+      color: #1e3c72;
+    }
+

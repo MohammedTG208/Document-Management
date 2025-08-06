@@ -1,0 +1,433 @@
+.folder-container {
+  position: relative;
+  padding: 20px;
+}
+
+/* Add Button */
+.add-button {
+  position: fixed;
+  top: 80px;
+  left: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #1e3c72;
+  color: white;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(30, 60, 114, 0.3);
+  transition: all 0.3s ease;
+  z-index: 100;
+}
+
+  .add-button:hover {
+    background-color: #0072ff;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(30, 60, 114, 0.4);
+  }
+
+  .add-button:active {
+    transform: translateY(0);
+  }
+
+/* Dialog Backdrop */
+.dialog-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Dialog Box */
+.dialog {
+  background: white;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 450px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+  animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Dialog Header */
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+  .dialog-header h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #1e3c72;
+    font-weight: 600;
+  }
+
+.close-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #6b7280;
+  padding: 4px;
+  border-radius: 6px;
+  transition: all 0.2s ease;
+}
+
+  .close-button:hover {
+    background-color: #f3f4f6;
+    color: #1e3c72;
+  }
+
+/* Dialog Content */
+.dialog-content {
+  padding: 24px;
+}
+
+.form-group {
+  margin-bottom: 24px;
+}
+
+  .form-group:last-child {
+    margin-bottom: 0;
+  }
+
+  .form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #374151;
+    font-size: 0.875rem;
+  }
+
+.input-field {
+  width: 100%;
+  padding: 10px 14px;
+  border: 2px solid #e5e7eb;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+  .input-field:focus {
+    border-color: #1e3c72;
+    box-shadow: 0 0 0 3px rgba(30, 60, 114, 0.1);
+  }
+
+  .input-field::placeholder {
+    color: #9ca3af;
+  }
+
+/* Checkbox Styling */
+.checkbox-group {
+  margin-top: 20px;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.checkbox-input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.checkbox-custom {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #e5e7eb;
+  border-radius: 4px;
+  margin-right: 12px;
+  transition: all 0.2s ease;
+  position: relative;
+  background-color: white;
+}
+
+.checkbox-input:checked ~ .checkbox-custom {
+  background-color: #1e3c72;
+  border-color: #1e3c72;
+}
+
+.checkbox-custom::after {
+  content: '';
+  position: absolute;
+  display: none;
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.checkbox-input:checked ~ .checkbox-custom::after {
+  display: block;
+}
+
+.checkbox-label {
+  font-weight: 500;
+  color: #374151;
+}
+
+.checkbox-description {
+  margin: 8px 0 0 32px;
+  font-size: 0.813rem;
+  color: #6b7280;
+}
+
+/* Dialog Footer */
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  padding: 20px 24px;
+  border-top: 1px solid #e5e7eb;
+  background-color: #f9fafb;
+  border-radius: 0 0 12px 12px;
+}
+
+/* Buttons */
+.btn {
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+  outline: none;
+}
+
+.btn-cancel {
+  background-color: white;
+  color: #6b7280;
+  border: 1px solid #e5e7eb;
+}
+
+  .btn-cancel:hover {
+    background-color: #f9fafb;
+    color: #374151;
+  }
+
+.btn-primary {
+  background-color: #1e3c72;
+  color: white;
+}
+
+  .btn-primary:hover:not(:disabled) {
+    background-color: #0072ff;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(30, 60, 114, 0.2);
+  }
+
+  .btn-primary:disabled {
+    background-color: #e5e7eb;
+    color: #9ca3af;
+    cursor: not-allowed;
+  }
+
+/* Folders List (Optional) */
+.folders-list {
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #f9fafb;
+  border-radius: 12px;
+}
+
+  .folders-list h3 {
+    margin: 0 0 16px 0;
+    color: #1e3c72;
+    font-size: 1.25rem;
+  }
+
+.folder-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background-color: white;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.folder-name {
+  font-weight: 500;
+  color: #374151;
+}
+
+.folder-status {
+  font-size: 0.813rem;
+  padding: 4px 12px;
+  border-radius: 20px;
+  background-color: #fee2e2;
+  color: #dc2626;
+}
+
+  .folder-status.public {
+    background-color: #d1fae5;
+    color: #059669;
+  }
+
+.folder-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background-color: white;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.folder-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.delete-button {
+  background-color: transparent;
+  border: none;
+  color: #dc2626;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+  .delete-button:hover {
+    background-color: #fee2e2;
+  }
+
+
+.folder-actions {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-left: auto;
+}
+
+.folder-item {
+  background-color: #f9f9f9;
+  margin-bottom: 12px;
+  padding: 16px;
+  border-radius: 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.3s ease;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.folder-item:hover {
+  background-color: #eef3ff;
+}
+
+.folder-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.folder-name {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.folder-status {
+  font-size: 14px;
+  color: #888;
+  padding: 2px 6px;
+  border-radius: 8px;
+  background-color: #e0e0e0;
+  width: fit-content;
+}
+
+.folder-status.public {
+  background-color: #d1e7dd;
+  color: #0f5132;
+}
+
+.folder-actions {
+  display: flex;
+  gap: 12px;
+}
+
+.edit-button,
+.delete-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #555;
+  transition: color 0.3s ease;
+}
+
+.edit-button:hover {
+  color: #0d6efd;
+}
+
+.delete-button:hover {
+  color: #dc3545;
+}
+
+svg {
+  display: block;
+}
+
+
+
+
+/* Responsive */
+@media (max-width: 640px) {
+  .dialog {
+    width: 95%;
+    margin: 10px;
+  }
+
+  .add-button {
+    top: 70px;
+    left: 10px;
+    width: 45px;
+    height: 45px;
+  }
+}

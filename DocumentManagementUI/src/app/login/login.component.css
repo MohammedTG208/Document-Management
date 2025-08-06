@@ -106,3 +106,10 @@ button {
   button:hover {
     background-color: #0056b3;
   }
+
+small {
+  display: block;
+  margin-top: 10px;
+  text-align: center;
+  color: red;
+}

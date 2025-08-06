@@ -9,16 +9,25 @@
 
     <!-- Right Form Section -->
     <div class="login-form">
-      <form (ngSubmit)="onSubmit(email.value, password.value)" #form >
+      <form (ngSubmit)="onSubmit()" [formGroup]="loginForm" >
         <h2 class="form-title">Login</h2>
         <div class="form-group">
-          <label for="email">Email</label>
-          <input id="email" type="email" name="email" #email required />
+          <label for="username">username</label>
+          <input id="username" type="text" name="username" formControlName="userName" required />
+          <small *ngIf="loginForm.get('username')?.touched && loginForm.get('username')?.errors?.['required']">
+            Username is required.
+          </small>
         </div>
 
         <div class="form-group">
           <label for="password">Password</label>
-          <input id="password" type="password" name="password" #password required />
+          <input id="password" type="password" name="password" formControlName="password" #password required />
+          <small *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.errors?.['required']">
+            <br />  Password is required.<br />
+          </small>
+          <small *ngIf="loginForm.get('password')?.errors?.['minlength']">
+            Password must be at least 6 characters.
+          </small>
         </div>
 
         <button type="submit">Sign In</button>

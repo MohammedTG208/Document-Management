@@ -30,6 +30,16 @@ builder.Host.UseSerilog();
 
 //DataSeeder.AddNewUser();
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularApp", policy =>
+    {
+        policy.AllowAnyOrigin() 
+              .AllowAnyMethod()
+              .AllowAnyHeader();
+    });
+});
+
 var app = builder.Build();
 var provider = app.Services.GetRequiredService<IApiVersionDescriptionProvider>();
 
@@ -51,7 +61,11 @@ if (app.Environment.IsDevelopment())
 
 
 
+
+
 app.UseHttpsRedirection();
+app.UseCors("AllowAngularApp");
+app.UseRouting();
 app.UseMiddleware<ExceptionHandlingMiddleWare>();
 app.UseAuthentication();
 app.UseAuthorization();

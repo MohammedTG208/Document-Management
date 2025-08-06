@@ -1,36 +1,50 @@
 <div class="register-wrapper">
   <div class="register-box">
-    <form (ngSubmit)="onRegister()" #registerForm="ngForm">
+    <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
       <h2 class="form-title">Create an Account</h2>
 
+      <!-- Username -->
       <div class="form-group">
         <label for="username">Username</label>
         <input id="username"
-               name="username"
                type="text"
-               required
-               [(ngModel)]="username"
+               formControlName="username"
                placeholder="e.g. mohammed00" />
+        <small *ngIf="registerForm.get('username')?.touched && registerForm.get('username')?.errors?.['required']">
+          Username is required.
+        </small>
       </div>
 
+      <!-- Password -->
       <div class="form-group">
         <label for="password">Password</label>
         <input id="password"
-               name="password"
                type="password"
-               required
-               [(ngModel)]="password"
+               formControlName="password"
                placeholder="Enter your password" />
+        <small *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.errors?.['required']">
+          Password is required.
+        </small>
+        <small *ngIf="registerForm.get('password')?.errors?.['minlength']">
+          Password must be at least 6 characters.
+        </small>
       </div>
 
+      <!-- Confirm Password -->
       <div class="form-group">
         <label for="confirmPassword">Confirm Password</label>
         <input id="confirmPassword"
-               name="confirmPassword"
                type="password"
-               required
-               [(ngModel)]="confirmPassword"
+               formControlName="confirmPassword"
                placeholder="Re-enter your password" />
+
+
+        <small *ngIf="registerForm.hasError('passwordMismatch') && registerForm.get('confirmPassword')?.touched">
+          Passwords do not match.
+        </small>
+
+
+        <small *ngIf="errorMessage"> {{ message() }}</small>
       </div>
 
       <button type="submit">Register</button>

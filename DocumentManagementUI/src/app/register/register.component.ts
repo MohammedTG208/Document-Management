@@ -1,29 +1,49 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { Component, inject, signal } from '@angular/core';
+import {  FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { AuthService, ValidationTwoInput } from '../Auth/authService';
+import { Router } from '@angular/router';
+import { NgIf } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+
+
+
 
 @Component({
   selector: 'app-register',
-  imports: [FormsModule, CommonModule],
+  imports: [ReactiveFormsModule, NgIf, HttpClientModule],
   templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+  styleUrls: ['./register.component.css'],
+  standalone: true,
 })
 export class RegisterComponent {
-  confirmPassword!: string;
-  password!: string;
-  username!: string;
+
+  private  authService = inject(AuthService);
+  private roter = inject(Router);
+  message = signal<string>('');
+  errorMessage: boolean = false;
+
+  registerForm = new FormGroup({
+    username: new FormControl('', { validators: [Validators.required, Validators.maxLength(20), Validators.minLength(4)] }),
+    password: new FormControl('', { validators: [Validators.required, Validators.maxLength(25), Validators.minLength(8)] }),
+    confirmPassword: new FormControl('', { validators: [Validators.required, Validators.maxLength(25), Validators.minLength(8),] })
+  }, { validators: [ValidationTwoInput("password", 'confirmPassword')] });
+
+  
 
   onRegister() {
-    if (this.password !== this.confirmPassword) {
-      alert('Passwords do not match!');
-      return;
-    }
-
-    // Here you would typically send the registration data to your backend
-    console.log('Registration successful for:', this.username);
-    // Reset form fields
-    this.username = '';
-    this.password = '';
-    this.confirmPassword = '';
+    this.authService.register({ username: this.registerForm.controls.username.value, password: this.registerForm.controls.password!.value }).subscribe({
+      next: () => {
+        this.errorMessage = false;
+        this.message.set('');
+      },
+      error: (error) => {
+          this.errorMessage = true;
+          this.message.set(error.error?.error || 'Registration failed try again later');
+        
+      },
+      complete: () => {
+        this.roter.navigate(['login']);
+      }
+    });
   }
 }

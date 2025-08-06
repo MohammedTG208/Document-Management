@@ -9,7 +9,8 @@ import { RouterOutlet } from '@angular/router';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  imports: [HeaderComponent, CommonModule, RouterOutlet]
+  imports: [HeaderComponent, CommonModule, RouterOutlet],
+  standalone: true
 })
 export class AppComponent {
   title = 'DocumentManagementUI';

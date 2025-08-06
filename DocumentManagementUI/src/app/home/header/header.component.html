@@ -2,15 +2,21 @@
   <div class="logo">📄| MTA</div>
   <ul class="links">
     <li><a href="#">Home</a></li>
-    <li><a routerLink="document">Documents</a></li>
+    <li><a routerLink="folder">folder</a></li>
     <li><a href="#">About</a></li>
     <li><a href="#contact">Contact</a></li>
-    <li><a routerLink="/profile">profile</a></li>
-
+    <li><a routerLink="/profile">Profile</a></li>
   </ul>
-  <div class="register">
+
+  <!-- If not logged in -->
+  <div class="register" *ngIf="!isLogin">
     <a routerLink="/login">Login</a>
     <a routerLink="/register">Register</a>
   </div>
-</nav>
 
+  <!-- If logged in -->
+  <div class="register" *ngIf="isLogin">
+    <a>{{ username }}</a>
+    <a class="logout-btn" (click)="logout()">Logout</a>
+  </div>
+</nav>

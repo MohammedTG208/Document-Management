@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { DUMMY_DATA_CARD } from '../../../Dummy_Data/Dummy_Data';
 import { CradComponent } from '../crad/crad.component';
 import { CommonModule } from '@angular/common';
 import { ContactComponent } from './contact/contact.component';
+import { DUMMY_DATA_CARD } from '../../../Dummy_Data/Dummy_Data';
 
 @Component({
   selector: 'app-home',

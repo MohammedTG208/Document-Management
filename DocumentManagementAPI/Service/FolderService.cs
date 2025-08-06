@@ -35,6 +35,7 @@ namespace DocumentManagementAPI.Service
             }
 
             folder.Name=update.Name;
+            folder.isPublic = update.IsPublic;
             await folderRepo.UpdateFolder(folder);
         }
 

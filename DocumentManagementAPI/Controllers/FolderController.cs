@@ -48,7 +48,7 @@ namespace DocumentManagementAPI.Controllers
             var user=User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             int.TryParse(user, out int userid);
             
-            await folderService.ChangeFolderName(userid, folderId, newFolderName);
+            await folderService.ChangeFolderName( folderId,userid, newFolderName);
             return "update folder name successfully";
         }
 

@@ -1,0 +1,59 @@
+<dialog class="dialog-backdrop" (click)="onBackdropClick($event)" open>
+  <div class="dialog" (click)="$event.stopPropagation()">
+
+    <!-- Header -->
+    <div class="dialog-header">
+      <h2>Upload Document</h2>
+      <button class="close-button" (click)="closeDialog()">✕</button>
+    </div>
+
+    <!-- Content -->
+    <div class="dialog-content">
+      <form [formGroup]="formAdd" (ngSubmit)="OnSubmit()">
+
+        <!-- Document Name -->
+        <div class="form-group">
+          <label for="docName">Document Name</label>
+          <input
+            type="text"
+            id="docName"
+            name="docName"
+            class="input-field"
+            placeholder="Enter document name"
+            formControlName="name"
+            required
+          />
+          @if (formAdd.get('name')?.touched && formAdd.get('name')?.errors?.['required']) {
+            <small style="color: red; font-size: large;">*required</small>
+          }
+        </div>
+
+        <!-- File Upload -->
+        <div class="form-group">
+          <label for="file">Upload File</label>
+          <input
+            type="file"
+            id="file"
+            name="file"
+            class="input-field"
+            accept=".pdf,.jpg,.png"
+            formControlName="file"
+            (change)="onFileChange($event)"
+          />
+              
+          @if (formAdd.get('file')?.touched && formAdd.get('file')?.errors?.['required']) {
+            <small style="color: red ; font-size: large;">*required</small>
+          }
+        </div>
+
+        <!--  Buttons -->
+        <div class="dialog-footer">
+          <button type="button" class="btn btn-cancel" (click)="closeDialog()">Cancel</button>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+
+      </form>
+    </div>
+
+  </div>
+</dialog>
