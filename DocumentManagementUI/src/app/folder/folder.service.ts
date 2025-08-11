@@ -44,5 +44,23 @@ export class FolderService {
   getAllFolders() {
    return this.http.get<any[]>(`${this.baseUrl.apiUrl}/api/v1/folder/all`);
   }
+
+  searchFolders(searchTerm: string) {
+    return this.http.get<MyData>(`${this.baseUrl.apiUrl}/api/v1/Folder/search/`, {
+      headers: this.header,
+      params: new HttpParams().set('searchTerm', searchTerm)
+    });
+  }
   
 }
+
+export class MyData {
+  item1!: any[];
+  item2!: {
+    pageNumber: number;
+    pageSize: number;
+    totalItemCount: number;
+    totalPageCount: number;
+  };
+}
+

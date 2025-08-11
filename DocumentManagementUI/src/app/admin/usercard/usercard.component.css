@@ -1,0 +1,46 @@
+.user-card {
+  background: linear-gradient(135deg, #1e3c72, #2a5298);
+  color: white;
+  border-radius: 12px;
+  padding: 16px;
+  margin: 12px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.user-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+.user-info h3 {
+  margin: 0;
+  font-size: 1.4rem;
+  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  -webkit-text-fill-color: transparent;
+}
+
+.user-info p {
+  margin: 4px 0;
+  font-size: 0.95rem;
+  opacity: 0.9;
+}
+
+.delete-btn {
+  background: linear-gradient(90deg, #ff4e50, #f53d3d);
+  border: none;
+  padding: 8px 14px;
+  border-radius: 8px;
+  color: white;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.delete-btn:hover {
+  background: linear-gradient(90deg, #ff6b6b, #ff4e50);
+}

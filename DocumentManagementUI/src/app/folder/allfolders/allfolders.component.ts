@@ -1,22 +1,22 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, OnInit, signal, Signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { FolderService } from '../folder.service';
+import { FolderService, MyData } from '../folder.service';
 import { routes } from '../../app.routers';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-allfolders',
-  imports: [CommonModule,ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule],
   templateUrl: './allfolders.component.html',
   styleUrl: './allfolders.component.css'
 })
 export class AllfoldersComponent implements OnInit {
-  folderService=inject(FolderService);
+  folderService = inject(FolderService);
   private routes = inject(Router);
   folders = signal<any[]>([]);
   searchForm = new FormGroup({
-  txtSearch: new FormControl('', { validators: [Validators.pattern('^[a-zA-Z0-9 ]*$')], updateOn: 'submit' })
+    txtSearch: new FormControl('', { validators: [Validators.pattern('^[a-zA-Z0-9 ]*$')], updateOn: 'submit' })
   });
 
   ngOnInit(): void {
@@ -35,7 +35,16 @@ export class AllfoldersComponent implements OnInit {
   }
 
   onSearch() {
-    throw new Error('Method not implemented.');
+    const searchTerm = this.searchForm.value.txtSearch;
+    if (searchTerm) {
+      this.folderService.searchFolders(searchTerm).subscribe({
+        next: (data) => {
+          this.folders.set(data.item1);
+        },
+        error: (error) => {
+          console.error('Error searching folders:', error);
+        },
+      });
+    }
   }
-
 }

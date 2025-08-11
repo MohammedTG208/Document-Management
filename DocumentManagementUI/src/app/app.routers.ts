@@ -10,6 +10,8 @@ import { DocumentComponent } from "./Document/document/document.component";
 import { AllfoldersComponent } from "./folder/allfolders/allfolders.component";
 import { ProfileComponent } from "./User/profile/profile.component";
 import { UpdateProfileComponent } from "./User/profile/update-profile/update-profile.component";
+import { authadminGuard } from "./authadmin.guard";
+import { UsercardComponent } from "./admin/usercard/usercard.component";
 
 export const routes: Routes = [
   // Public Routes
@@ -31,6 +33,16 @@ export const routes: Routes = [
       { path: 'mydoc/:folderId', component: DocumentComponent },
       {path:'profile', component: ProfileComponent},
       {path: 'profile/edit', component: UpdateProfileComponent}
+    ]
+  },
+
+  // Admin Routes
+  {
+    path: 'admin',
+    canActivateChild: [authadminGuard],
+    children: [
+      // Add admin-specific routes here
+      {path: 'usercard', component: UsercardComponent},
     ]
   },
 
