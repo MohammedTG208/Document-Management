@@ -1,19 +1,19 @@
-
-<!--<div class="greet">
-  <h2 class="greet-title">Welcome to</h2>
-  <h1 class="greet-app-name">Your Profile</h1>
-  <p class="greet-subtitle">Review your personal information</p>
-</div>
-
 <section class="profile-container">
-  <div class="document-card profile-card">
-    <div class="profile-info">
-      <h2 class="document-title">Mohammed Tariq</h2>
-      <p class="document-user"><strong>Email:</strong>mohammed&#64;example.com</p>
-      <p class="document-user"><strong>Phone:</strong>+966 5X XXX XXXX</p>
-
-      <button class="document-btn">Update Profile</button>
-    </div>
+  <div class="profile-header">
+    <h2>Profile</h2>
   </div>
-</section>-->
 
+  <label>First Name</label>
+  <div class="info-text">{{ profile.firstName }}</div>
+
+  <label>Last Name</label>
+  <div class="info-text">{{ profile.lastName }}</div>
+
+  <label>Email</label>
+  <div class="info-text">{{ profile.email }}</div>
+
+  <label>Phone Number</label>
+  <div class="info-text">{{ profile.phoneNumber }}</div>
+
+  <button (click)="goToEdit()">Edit Profile</button>
+</section>

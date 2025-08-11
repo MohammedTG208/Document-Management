@@ -11,6 +11,7 @@ export class FolderService {
   private http = inject(HttpClient);
   private baseUrl = environment;
   private router=inject(Router);
+  header=getHeaders();
 
   constructor() { }
 
@@ -38,6 +39,10 @@ export class FolderService {
 
   goToUserDoc(folderId:number){
     this.router.navigate(['/mydoc/',folderId])
+  }
+
+  getAllFolders() {
+   return this.http.get<any[]>(`${this.baseUrl.apiUrl}/api/v1/folder/all`);
   }
   
 }

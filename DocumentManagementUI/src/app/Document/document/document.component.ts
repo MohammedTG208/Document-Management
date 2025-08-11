@@ -18,6 +18,7 @@ export class DocumentComponent implements OnInit {
 
   msgDialog!: boolean;
   open!: boolean;
+  owner: boolean=true;
   documents = signal<any[]>([]);
   private documentService = inject(DocumentService);
   private params = inject(ActivatedRoute);
@@ -65,13 +66,47 @@ export class DocumentComponent implements OnInit {
   getAllDocumentByFolderId() {
     this.documentService.getDocumentbyId(this.folderId).subscribe({
       next: (respons: any) => {
+        console.log("Documents fetched successfully:", respons);
         this.documents.set(respons)
+
+        if (this.documents().length === 0) {
+          this.callFallbackEndpoint();
+       }
       },
       error: (errorMSG) => {
-        console.log(errorMSG);
+        if (errorMSG.status === 401 ) {
+          console.log("Unauthorized access");
+          this.callFallbackEndpoint();
+          console.log(errorMSG);
+        }
+        
       },
     })
   }
+
+  callFallbackEndpoint() {
+  this.documentService.getAllDocument().subscribe({
+    next: (response: any) => {
+      const fallbackDocs = Array.isArray(response.item1)
+        ? response.item1.filter((doc: any) => doc.folderId === this.folderId)
+        : [];
+
+      this.documents.set(fallbackDocs);
+
+      if (fallbackDocs.length > 0) {
+        this.owner = false;
+        console.log("Fallback: documents found for this folder");
+      } else {
+        console.log("Fallback: no documents found for this folder");
+      }
+    },
+    error: (errorMSG) => {
+      console.error("Fallback error:", errorMSG);
+    }
+  });
+}
+
+
 
 
   ngOnInit(): void {

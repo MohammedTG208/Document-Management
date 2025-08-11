@@ -60,5 +60,12 @@ namespace DocumentManagementAPI.Repo
             dbContext.Update(folder);
             await dbContext.SaveChangesAsync();
         }
+
+        public async Task<IEnumerable<object>> GetAllFolders()
+        {
+           return await dbContext.Folders.Include(f => f.Users).Where(f=> f.isPublic == true)
+                .Select(f => new { f.Id, f.Name, UserName = f.Users.UserName })
+                .ToListAsync<object>();
+        }
     }
 }

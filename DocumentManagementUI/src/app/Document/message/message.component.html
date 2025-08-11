@@ -1,18 +1,24 @@
-<!-- Dialog -->
 <div class="message-section" (click)="onBackdropClick($event)">
   <!-- Close Button -->
   <button class="close-button" (click)="closeDialog()">×</button>
 
   <!-- Messages List -->
   @if (messages && messages.length > 0) {
-    <div class="messages-list" #messagesList>
-      @for (message of messages; track message.id) {
-        <div class="message-item">
-          <div class="message-text">{{ message.text }}</div>
-          <div class="message-time">{{ message.timestamp }}</div>
-        </div>
-      }
+    <div class="messages-list" >
+  @for (message of messages; track $index) {
+    <div class="message-item">
+      <div class="message-header">
+        <strong class="message-user">
+          {{ message.user.userName || 'Unknown User' }}
+        </strong>
+      </div>
+      <div class="message-text">{{ message.content }}</div>
+      <div class="message-time">
+        {{ message.user.create_at ? (message.user.create_at | date: 'short') : '' }}
+      </div>
     </div>
+  }
+</div>
   } @else {
     <p class="no-messages">No message added — be the first person!</p>
   }
@@ -27,26 +33,29 @@
         rows="1"
       ></textarea>
 
-      @if (messageForm.controls.messageInput.touched && messageForm.controls.messageInput.invalid) {
-        @if (messageForm.controls.messageInput.errors?.['maxlength']) {
-          <small style="color: red;">Message must be less than 255 characters.</small>
-        } @else if (messageForm.controls.messageInput.errors?.['required']) {
-          <small style="color: red;">This input is required.</small>
-        } @else if (messageForm.controls.messageInput.errors?.['mainLength']) {
-          <small style="color: red;">Message must be bigger than 3 characters.</small>
-        }
-      }
-
-      <div class="char-count">
-        {{ messageForm.controls.messageInput.value?.length || 0 }}/200 characters
-      </div>
+      <button class="send-button" type="submit" [disabled]="!messageForm.valid">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22,2 15,22 11,13 2,9"></polygon>
+        </svg>
+      </button>
     </div>
 
-    <button class="send-button" type="submit" [disabled]="!messageForm.valid">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <line x1="22" y1="2" x2="11" y2="13"></line>
-        <polygon points="22,2 15,22 11,13 2,9"></polygon>
-      </svg>
-    </button>
+    <!-- Error Messages -->
+    @if (messageForm.controls.messageInput.touched && messageForm.controls.messageInput.invalid) {
+      @if (messageForm.controls.messageInput.errors?.['maxlength']) {
+        <small style="color: red;">Message must be less than 255 characters.</small>
+      } @else if (messageForm.controls.messageInput.errors?.['required']) {
+        <small style="color: red;">This input is required.</small>
+      } @else if (messageForm.controls.messageInput.errors?.['minlength']) {
+        <small style="color: red;">Message must be at least 3 characters long.</small>
+      } @else if (messageForm.controls.messageInput.errors?.['pattern']) {
+        <small style="color: red;">Message must not be empty or only spaces.</small>
+      }
+    }
+
+    <div class="char-count">
+      {{ messageForm.controls.messageInput.value?.length || 0 }}/255 characters
+    </div>
   </form>
 </div>

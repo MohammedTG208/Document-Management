@@ -27,7 +27,7 @@ namespace DocumentManagementAPI.Controllers
         public async Task<ActionResult> GetFoldersByUserId()
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
-            int.TryParse(userId,out int userid);
+            int.TryParse(userId, out int userid);
             return Ok(await folderService.GetAllFoldersByUserId(userid));
         }
 
@@ -43,20 +43,26 @@ namespace DocumentManagementAPI.Controllers
 
         [HttpPatch("update/{folderId}")]
         [Authorize]
-        public async Task<string> ChangeFolderName(int folderId,[FromBody] ChangeFolderNameDto newFolderName)
+        public async Task<string> ChangeFolderName(int folderId, [FromBody] ChangeFolderNameDto newFolderName)
         {
-            var user=User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+            var user = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             int.TryParse(user, out int userid);
-            
-            await folderService.ChangeFolderName( folderId,userid, newFolderName);
+
+            await folderService.ChangeFolderName(folderId, userid, newFolderName);
             return "update folder name successfully";
         }
 
         [HttpGet("search/{folderName}")]
-        
-        public async Task<(IEnumerable<FolderDto>, DocumentManagementAPI.Paging.Page)> SearchByName(string folderName,[FromQuery] int pageNumber=1,[FromQuery] int pageSize=10)
+
+        public async Task<(IEnumerable<FolderDto>, DocumentManagementAPI.Paging.Page)> SearchByName(string folderName, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
             return await folderService.SearchByFolderName(folderName, pageNumber, pageSize);
+        }
+
+        [HttpGet("all")]
+        public async Task<ICollection<Object>> GetAllFolders()
+        {
+            return await folderService.GetAllFolders();
         }
     }
 }

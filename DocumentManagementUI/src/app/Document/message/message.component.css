@@ -28,6 +28,7 @@
   display: flex;
   flex-direction: column;
   animation: dialogFadeIn 0.3s ease;
+  overflow-y: auto;
 }
 
 @keyframes dialogFadeIn {
@@ -202,3 +203,15 @@
   border-radius: 10px;
   border: 1px dashed #d1d5db;
 }
+
+.message-header {
+  font-size: 13px;
+  font-weight: 600;
+  color: #0f172a;
+  margin-bottom: 6px;
+}
+
+.message-user {
+  color: #1d4ed8;
+}
+

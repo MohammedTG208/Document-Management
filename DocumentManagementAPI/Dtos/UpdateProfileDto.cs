@@ -13,10 +13,10 @@ namespace DocumentManagementAPI.Dtos
 
         [EmailAddress]
 
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         [RegularExpression(@"^05\d{8}$", ErrorMessage = "Phone number must start with 05 and contain exactly 10 digits.")]
-        public string PhoneNumber { get; set; }
+        public string? PhoneNumber { get; set; }
 
     }
 }

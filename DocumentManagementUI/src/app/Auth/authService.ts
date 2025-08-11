@@ -81,12 +81,16 @@ export function getHeaders() {
   return new HttpHeaders();
 }
 
-export function isTokenExpired(){
-  const token=getToken();
-  if(!token) return true; //if empty return true;
+export function isTokenExpired(token: string): boolean {
+  if (!token) return true;
 
-  const now =Math.floor(Date.now()/1000); //Convert to seconds
+  const payload = JSON.parse(atob(token.split('.')[1]));
+  const now = Math.floor(Date.now() / 1000);
 
-  return token.exp < now; //return false if the date bigger then the token date 
+  return payload.exp < now;
+}
+
+export function deleteToken() {
+  localStorage.removeItem('token');
 }
 

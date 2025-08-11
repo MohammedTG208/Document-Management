@@ -8,9 +8,9 @@ using DocumentManagementAPI.ExceptionHandling;
 
 namespace DocumentManagementAPI.Service
 {
-    public class FolderService(IUserRepo userRepo,FolderRepo folderRepo, ILogger<FolderService> logger,IMapper mapper) : IFolder
+    public class FolderService(IUserRepo userRepo, FolderRepo folderRepo, ILogger<FolderService> logger, IMapper mapper) : IFolder
     {
-        public async Task AddNewFolder(CreateFolderDto folder,int userId)
+        public async Task AddNewFolder(CreateFolderDto folder, int userId)
         {
             var checkUser = await userRepo.GetUserById(userId);
             if (checkUser == null)
@@ -18,11 +18,11 @@ namespace DocumentManagementAPI.Service
 
             var entityFolder = mapper.Map<Folder>(folder);
             entityFolder.UserId = userId;
-            entityFolder.Users=checkUser;
+            entityFolder.Users = checkUser;
             await folderRepo.AddNewFolder(entityFolder);
         }
 
-        
+
 
         public async Task ChangeFolderName(int folderId, int userId, ChangeFolderNameDto update)
         {
@@ -34,23 +34,23 @@ namespace DocumentManagementAPI.Service
 
             }
 
-            folder.Name=update.Name;
+            folder.Name = update.Name;
             folder.isPublic = update.IsPublic;
             await folderRepo.UpdateFolder(folder);
         }
 
-        public async Task DeleteFolder(int folderId,int userId )
-        { 
+        public async Task DeleteFolder(int folderId, int userId)
+        {
             var user = await userRepo.GetUserByIdAndInclodFolderAsync(userId);
             if (!user.Folders.Any(f => f.Id == folderId)) throw new NotFoundException("This folder not found");
-            if (user.Id!=userId && !user.Folders.Any(s=>s.Id==folderId)) throw new Exception("you can not delete this folder");
+            if (user.Id != userId && !user.Folders.Any(s => s.Id == folderId)) throw new Exception("you can not delete this folder");
             await folderRepo.DeleteFolder(folderId);
 
         }
 
         public async Task<ICollection<FolderDto>> GetAllFoldersByUserId(int userId)
         {
-            var folders=await folderRepo.GetFoldersByUserId(userId);
+            var folders = await folderRepo.GetFoldersByUserId(userId);
 
             return mapper.Map<ICollection<FolderDto>>(folders);
         }
@@ -60,7 +60,7 @@ namespace DocumentManagementAPI.Service
 
             var totalCount = await folderRepo.CountFolders();
 
-            var folders = await folderRepo.paganation(pageNumber, pageSize,folderName);
+            var folders = await folderRepo.paganation(pageNumber, pageSize, folderName);
 
             var folderDtos = mapper.Map<IEnumerable<FolderDto>>(folders);
             var page = new Page(pageSize, pageNumber, totalCount);
@@ -70,11 +70,17 @@ namespace DocumentManagementAPI.Service
 
         public async Task updateFolderStatus(int folderId, bool ispublic)
         {
-            
+
             if (await folderRepo.updateFolderStatus(ispublic, folderId) == 0)
             {
                 throw new BadRequestException($"if status of this folder {!ispublic} most be {ispublic}");
             }
+        }
+
+        public async Task<ICollection<Object>> GetAllFolders()
+        {
+           var folders = await folderRepo.GetAllFolders();
+            return folders.Cast<Object>().ToList();
         }
     }
 }

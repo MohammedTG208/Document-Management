@@ -60,7 +60,7 @@ namespace __Document_Management_API.Controllers
         }
 
         [HttpGet("get/all/doc")]
-        public async Task<(ICollection<DocumentDto>, DocumentManagementAPI.Paging.Page)> GetDocuments([FromQuery] string? docName, [FromQuery] string? querySearch, int pageSize = 10, int pageNumber = 1)
+        public async Task<(ICollection<Object>, DocumentManagementAPI.Paging.Page)> GetDocuments([FromQuery] string? docName, [FromQuery] string? querySearch, int pageSize = 10, int pageNumber = 1)
         {
             var result = await documentService.GetDocuments(docName, querySearch, pageSize, pageNumber);
             Response.Headers.Append("X-Pagination", System.Text.Json.JsonSerializer.Serialize(result.Item2));
@@ -69,7 +69,7 @@ namespace __Document_Management_API.Controllers
 
         [HttpGet("{folderId}")]
         [Authorize]
-        public async Task<ICollection<UserDocumentDto>> GetDocumentByUserId(int folderId)
+        public async Task<ICollection<object>> GetDocumentByUserId(int folderId)
         {
             var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
             int.TryParse(userId, out int userid);

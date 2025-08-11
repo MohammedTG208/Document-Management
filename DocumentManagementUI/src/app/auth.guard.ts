@@ -1,14 +1,16 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, RedirectCommand, Router } from '@angular/router';
-import { AuthService, getHeaders, isTokenExpired } from './Auth/authService';
+import { AuthService, deleteToken, isTokenExpired } from './Auth/authService';
 
 export const authGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
-  const isLogin = authService.getUserInfo()?.jwt;
+  const jwt = authService.getUserInfo()?.jwt;
   const router = inject(Router);
-  if (isLogin && !isTokenExpired()) {
+  if (jwt && !isTokenExpired(jwt!)) {
     return true;
   } else {
-   return new RedirectCommand(router.parseUrl('login'))
+    deleteToken();
+   return new RedirectCommand(router.parseUrl('login'));
+
   }
 };

@@ -73,3 +73,53 @@ nav li a {
       color: #1e3c72;
     }
 
+/* DROPDOWN STYLE FIXED */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  cursor: pointer;
+  text-decoration: none;
+  color: #ffffff;
+  padding: 10px 12px;
+  border-radius: 6px;
+  transition: background 0.3s ease;
+}
+
+.dropbtn:hover {
+  background-color: #0072ff;
+}
+
+/* Dropdown menu */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #1e3c72; /* fixed invalid color */
+  min-width: 160px;
+  border: 1px solid #ffffff44;
+  border-radius: 6px;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  z-index: 10;
+}
+
+/* Dropdown links */
+.dropdown-content a {
+  display: block;
+  padding: 10px 14px;
+  text-decoration: none;
+  color: #ffffff;
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect inside dropdown */
+.dropdown-content a:hover {
+  background-color: #0072ff;
+  color: #ffffff;
+}
+
+/* Show dropdown on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}

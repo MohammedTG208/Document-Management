@@ -15,10 +15,10 @@ namespace __Document_Management_API.IService
 
         Task deleteDoucment(int docId,int userId);
 
-        Task<ICollection<MessagesDto>> GetMessages(int docId);
+        Task<ICollection<Object>> GetMessages(int docId);
 
-        Task<ICollection<UserDocumentDto>> GetDocumentsByUserId(int userId,int folderId);
+        Task<ICollection<Object>> GetDocumentsByUserId(int userId,int folderId);
 
-        Task<(ICollection<DocumentDto>, Page)> GetDocuments(string? docName, string? querySearch, int pageSize, int PageNumber);
+        Task<(ICollection<object>, Page)> GetDocuments(string? docName, string? querySearch, int pageSize, int PageNumber);
     }
 }

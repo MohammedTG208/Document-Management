@@ -69,12 +69,18 @@ namespace DocumentManagementAPI.Repo
         }
 
 
-        public async Task<ICollection<UserDocumentDto>> GetDocumentsByUserIdAsync(int userId,int folderId)
+        public async Task<ICollection<Object>> GetDocumentsByUserIdAsync(int userId, int folderId)
         {
-            return await dbContext.Documents.Where(doc => doc.user.Id == userId && doc.Folder.Id==folderId).Select(doc=> new UserDocumentDto{
-                Id = doc.Id,
-                Name=doc.Name,
-            }).ToListAsync();
+           return await dbContext.Documents
+   .Where(doc => doc.user.Id == userId && doc.Folder.Id == folderId).Select(doc => new
+   {
+       doc.Id,
+       doc.Name,
+       FolderId = doc.Folder.Id,
+       FolderName = doc.Folder.Name
+   }).Cast<Object>()
+   .ToListAsync();
+            
         }
     }
 }

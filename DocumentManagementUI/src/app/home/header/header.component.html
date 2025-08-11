@@ -1,8 +1,18 @@
 <nav class="main-nav">
   <div class="logo">📄| MTA</div>
+
   <ul class="links">
     <li><a href="#">Home</a></li>
-    <li><a routerLink="folder">folder</a></li>
+
+    <!-- Dropdown menu -->
+    <li class="dropdown">
+      <a href="javascript:void(0)" class="dropbtn">Folders ▼</a>
+      <div class="dropdown-content">
+        <a routerLink="folders">All Folders</a>
+        <a routerLink="folder">My Folder</a>
+      </div>
+    </li>
+
     <li><a href="#">About</a></li>
     <li><a href="#contact">Contact</a></li>
     <li><a routerLink="/profile">Profile</a></li>

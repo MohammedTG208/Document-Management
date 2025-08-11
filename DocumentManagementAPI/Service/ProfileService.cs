@@ -52,13 +52,13 @@ namespace DocumentManagementAPI.Service
 
             var allValues = check.SelectMany(x => x).ToList();
 
-            if (allValues.Contains(updateProfile.Email))
+            if (allValues.Contains(updateProfile.Email) && profile.Email != updateProfile.Email)
             {
                 throw new Exception("The Email is already in use.");
 
             }
 
-            if (allValues.Contains(updateProfile.PhoneNumber))
+            if (allValues.Contains(updateProfile.PhoneNumber) && profile.PhoneNumber != updateProfile.PhoneNumber)
             {
                 throw new Exception("The PhoneNumber is already in use.");
 

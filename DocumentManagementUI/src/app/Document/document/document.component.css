@@ -32,10 +32,16 @@
 }
 
 .document-list {
-  margin-top: 50px;
+  margin-top: 80px;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
+}
+
+.document-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 }
 
 .document-item {
@@ -91,6 +97,12 @@
   background-color: #dc2626;
 }
 
+.message-dialog-container {
+  margin-left: 20px;
+  padding: 10px;
+  border-left: 2px solid #3b82f6;
+}
+
 .empty-message {
   text-align: center;
   margin-top: 50px;
@@ -110,4 +122,12 @@
 
 .empty-text {
   font-size: 18px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.empty-subtext {
+  font-size: 14px;
+  color: #777;
+  margin-top: 5px;
 }

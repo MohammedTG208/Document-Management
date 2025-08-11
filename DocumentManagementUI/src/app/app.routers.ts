@@ -7,15 +7,33 @@ import { FolderComponent } from "./folder/folder.component";
 import { authGuard } from "./auth.guard";
 import { FolderDialogComponent } from "./folder/folder-dialog/folder-dialog.component";
 import { DocumentComponent } from "./Document/document/document.component";
-
-
+import { AllfoldersComponent } from "./folder/allfolders/allfolders.component";
+import { ProfileComponent } from "./User/profile/profile.component";
+import { UpdateProfileComponent } from "./User/profile/update-profile/update-profile.component";
 
 export const routes: Routes = [
-  { path: '', redirectTo: '/home', pathMatch: 'full' },
+  // Public Routes
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'folder', component: FolderComponent, canActivate: [authGuard], children: [{ path: 'folder-dialog', component: FolderDialogComponent, canActivate: [authGuard] }] },
-  {path:'mydoc/:folderId',component:DocumentComponent,canActivate:[authGuard]},
+  { path: 'folders', component: AllfoldersComponent },
+  
+
+  // Protected Routes
+  // Redirect to home if no path matches
+  {
+    path: '',
+    canActivateChild: [authGuard],
+    children: [
+      { path: 'folder', component: FolderComponent },
+      { path: 'folder/folder-dialog', component: FolderDialogComponent },
+      { path: 'mydoc/:folderId', component: DocumentComponent },
+      {path:'profile', component: ProfileComponent},
+      {path: 'profile/edit', component: UpdateProfileComponent}
+    ]
+  },
+
+  // 404 fallback
   { path: '**', component: PageNotFoundngComponent }
 ];

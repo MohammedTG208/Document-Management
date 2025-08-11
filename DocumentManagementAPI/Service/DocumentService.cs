@@ -57,7 +57,7 @@ namespace DocumentManagementAPI.Service
             return docDto;
         }
 
-        public async Task<(ICollection<DocumentDto>, Page)> GetDocuments(string? docName, string? querySearch, int pageSize, int PageNumber)
+        public async Task<(ICollection<Object>, Page)> GetDocuments(string? docName, string? querySearch, int pageSize, int PageNumber)
         {
 
             var query = await documentRepo.GetFilteredDocumentsAsync(docName, querySearch);
@@ -72,23 +72,18 @@ namespace DocumentManagementAPI.Service
 
             page.TotalItemCount = totalItemCount;
 
-            var doc = mapper.Map<ICollection<DocumentDto>>(document);
-            //var doc = document.Select( d => new DocumentDto
-            //{
-            //    Name = d.Name,
-            //    Id = d.Id,
-            //    user = new Dtos.User.UserDto { UserName = d.Name },
-            //    Folder = new Dtos.FolderDto.FolderDto
-            //    {
-            //        Id = d.Folder.Id,
-            //        Name= d.Folder.Name 
-            //    },
-            //}).ToList();
+            // var doc = mapper.Map<ICollection<DocumentDto>>(document);
+            var doc = document.Select( d => new
+            {
+                Name = d.Name,
+                Id = d.Id,
+               folderId = d.Folder?.Id ,
+            }).ToList();
 
-            return (doc, page);
+            return (doc.Cast<object>().ToList(), page);
         }
 
-        public async Task<ICollection<MessagesDto>> GetMessages(int docId)
+        public async Task<ICollection<Object>> GetMessages(int docId)
         {
             var docMessages = await documentRepo.GetDocumentsMessagesById(docId);
 
@@ -100,39 +95,20 @@ namespace DocumentManagementAPI.Service
 
             logger.LogInformation("Messages found");
             //return mapper.Map<ICollection<MessagesDto>>(docMessages);
-            var messageDto = docMessages.Select(d => new MessagesDto()
+            var messageDto = docMessages.Select(d => new 
             {
                 Id = d.Id,
                 Content = d.Content,
-                Folder = new Dtos.FolderDto.FolderDto()
-                {
-                    Id = d.Document.Folder.Id,
-                    Name = d.Document.Folder.Name
-                },
-                User = new UserDto()
+                User = new
                 {
                     Id = d.User.Id,
                     UserName = d.User.UserName,
                     create_at = d.User.created_at,
                 },
-                Document = new DocumentDto()
-                {
-                    Id = d.Document.Id,
-                    Name = d.Document.Name,
-                    Folder = new Dtos.FolderDto.FolderDto()
-                    {
-                        Id = d.Document.Folder.Id,
-                        Name = d.Document.Folder.Name
-                    },
-                    user = new UserDto()
-                    {
-                        Id = d.User.Id,
-                        UserName = d.User.UserName,
-                    }
-                }
+                
             }
             ).ToList();
-            return messageDto;
+            return messageDto.Cast<Object>().ToList();
         }
 
 
@@ -143,7 +119,7 @@ namespace DocumentManagementAPI.Service
             const long MaxFileSize = 10L * 1024 * 1024; //  10MB
             const long MinFileSize = 1024; //  1KB minimum
 
-            // NEW: Define allowed file types
+            
             var allowedExtensions = new[] { ".pdf", ".jpg", ".jpeg", ".png"};
             var allowedMimeTypes = new[] {
                 "application/pdf",
@@ -151,7 +127,7 @@ namespace DocumentManagementAPI.Service
                 "image/png",
             };
 
-            // NEW: File signatures for validation
+            
             var fileSignatures = new Dictionary<string, byte[]>
             {
                 { ".pdf", new byte[] { 0x25, 0x50, 0x44, 0x46 } }, // %PDF
@@ -183,9 +159,7 @@ namespace DocumentManagementAPI.Service
                 throw new UnauthorizedException("You don't have access to this folder");
             }
 
-            // ENHANCED FILE VALIDATION (Add these 5 critical checks)
-
-            // 1. Basic file validation (your existing + minimum size)
+            
             if (formFile == null || formFile.Length == 0)
             {
                 logger.LogWarning("Document not uploaded");
@@ -271,9 +245,16 @@ namespace DocumentManagementAPI.Service
             logger.LogInformation($"Document uploaded successfully for {user.UserName}. File: {formFile.FileName}, Size: {formFile.Length} bytes");
         }
 
-        public async Task<ICollection<UserDocumentDto>> GetDocumentsByUserId(int userId, int folderId)
+        public async Task<ICollection<Object>> GetDocumentsByUserId(int userId, int folderId)
         {
+            var user = await userRepo.GetUserByIdAndInclodFolderAsync(userId);
+            if (user == null)
+            {
+                logger.LogError("User not found by this ID: " + userId);
+                throw new UnauthorizedException("User not have access to this folder");
+            }
             var doc = await documentRepo.GetDocumentsByUserIdAsync(userId, folderId);
+            logger.LogInformation($"Get Documents by User ID: {userId} and Folder ID: {folderId}");
             return doc;
         }
 

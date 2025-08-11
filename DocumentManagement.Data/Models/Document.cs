@@ -22,6 +22,7 @@ namespace DocumentManagement.Data.Models
         public required User user { get; set; }
 
         [ForeignKey("folder_id")]
+        [JsonIgnore]
         public Folder? Folder { get; set; }
 
         public ICollection<Message> Messages { get; set; } = new List<Message>();

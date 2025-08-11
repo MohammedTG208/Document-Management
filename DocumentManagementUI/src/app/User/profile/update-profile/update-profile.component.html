@@ -1,34 +1,36 @@
-<!-- Update Profile Button -->
-<!--<button class="update-btn" (click)="toggleForm()">Update Profile</button>-->
-
-<!-- Update Profile Form -->
-<!--<div class="profile-container" [class.show]="showForm">
-  <h2>Edit Your Profile</h2>
-
-  <div class="form-group">
-    <label for="firstName">First Name</label>
-    <input type="text" id="firstName" name="firstname" [(ngModel)]="profile.firstName" placeholder="John">
+<section class="profile-container">
+  <div class="profile-header">
+    <h2>Edit Profile</h2>
   </div>
 
-  <div class="form-group">
-    <label for="lastName">Last Name</label>
-    <input type="text" id="lastName" name="lastname" [(ngModel)]="profile.lastName" placeholder="Doe">
-  </div>
+  <form [formGroup]="editForm" (ngSubmit)="saveProfile()" >
+    <label for="firstName">First Name <span style="color: red;"> *</span></label>
+    <input type="text" id="firstName" formControlName="firstName" name="firstName" required />
+    @if (editForm.controls.firstName.touched && editForm.controls.firstName?.errors?.["required"]) {
+      <small class="error-message">First Name is required.</small>
+    }
 
-  <div class="form-group">
-    <label for="email">Email Address</label>
-    <input type="email" id="email" name="email" [(ngModel)]="profile.email" placeholder="john.doe@example.com">
-  </div>
+    <label for="lastName">Last Name <span style="color: red;"> *</span></label>
+    <input type="text" id="lastName" formControlName="lastName"  name="lastName" required />
+    @if (editForm.controls.lastName.touched && editForm.controls.lastName?.errors?.["required"]) {
+      <small class="error-message">Last Name is required.</small>
+    }
+    <label for="email">Email <span style="color: red;"> *</span></label>
+    <input type="email" id="email" formControlName="email" name="email" [readonly]="haveProfile" />
+    @if (editForm.controls.email.touched && editForm.controls.email?.errors?.["required"]) {
+      <small class="error-message">Email is required.</small>
+    }
 
-  <div class="form-group">
-    <label for="username">Username (cannot be changed)</label>
-    <input type="text" id="username" [value]="profile.username" readonly>
-  </div>
+    <label for="phone">Phone Number <span style="color: red;"> *</span></label>
+    <input type="tel" id="phone" formControlName="phoneNumber" name="phone" [readonly]="haveProfile" />
 
-  <div class="form-group">
-    <label for="phone">Phone Number</label>
-    <input type="tel" id="phone" name="phone" [(ngModel)]="profile.phone" placeholder="+966 567654345">
-  </div>
+    @if (editForm.controls.phoneNumber?.errors?.['pattern']) {
+      <small class="error">
+      Phone number must start with 05 and be 10 digits long.
+    </small>
+    }
 
-  <button class="save-btn" (click)="saveChanges()">Save Changes</button>
-</div>-->
+    <button type="submit">Save</button>
+    <button type="button" class="secondary" (click)="cancelEdit()">Cancel</button>
+  </form>
+</section>
