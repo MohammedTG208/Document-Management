@@ -1,5 +1,5 @@
 import { Component, inject, signal } from '@angular/core';
-import {  FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AuthService, storeToken } from '../Auth/authService';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
@@ -20,23 +20,25 @@ export class LoginComponent {
   });
   private authService = inject(AuthService);
 
-  onSubmit() {
-    this.authService.login({
-      userName: this.loginForm.controls.userName.value,
-      password: this.loginForm.controls.password.value
-    }).subscribe({
-      next: (response) => {
-        this.errorMessage = false;
-        this.message.set('');
-        storeToken(response);
+ onSubmit() {
+  const credentials = {
+    userName: this.loginForm.controls.userName.value,
+    password: this.loginForm.controls.password.value
+  };
 
-        this.authService.setLoginStatus(true);  
-        this.router.navigate(['']);              
-      },
-      error: (error) => {
+  this.authService.login(credentials).subscribe({
+    next: (res) => {
+      storeToken(res.body as string);
+      this.authService.setLoginStatus(true);
+      this.authService.setAdminLoginStatus(this.authService.getUserInfo()?.role.includes('Admin') ?? false);
+      this.router.navigate(['']);
+    },
+    error: (err) => { 
         this.errorMessage = true;
-        this.message.set(error.error?.error || 'Login failed try again later');
-      }
-    });
-  }
+        this.message.set(err.error?.error || 'Login failed, try again later');
+      
+    }
+  });
+}
+
 }

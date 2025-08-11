@@ -42,7 +42,7 @@ export const routes: Routes = [
     canActivateChild: [authadminGuard],
     children: [
       // Add admin-specific routes here
-      {path: 'usercard', component: UsercardComponent},
+      {path: 'all/user', component: UsercardComponent},
     ]
   },
 

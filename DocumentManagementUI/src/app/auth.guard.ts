@@ -11,6 +11,5 @@ export const authGuard: CanActivateFn = (route, state) => {
   } else {
     deleteToken();
    return new RedirectCommand(router.parseUrl('login'));
-
   }
 };

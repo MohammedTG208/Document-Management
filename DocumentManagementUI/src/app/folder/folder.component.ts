@@ -25,7 +25,7 @@ export class FolderComponent {
 
   folders = signal<any[]>([]);
   showDialog = false;
-  isLoading = false; // Add loading state
+  isLoading = false;
   updateFolder = false;
   updatedFolderValue!: any;
 

@@ -1,11 +1,15 @@
-
-@for (user of users; track $index) {
-  <div class="user-card" (click)="viewUser(user.id)">
-  <div class="user-info">
-    <h3 class="user-name">{{ user.userName }}</h3>
-    <p><strong>ID:</strong> {{ user.id }}</p>
-    <p><strong>Date Join At::</strong> {{ user.create_at | date: 'medium' }}</p>
-  </div>
-  <button class="delete-btn" (click)="deleteUser(user.id); $event.stopPropagation()">Delete</button>
+<div class="user-card-container">
+  @for (user of users; track $index) {
+    <div class="user-card">
+      <div class="user-info">
+        <h3 class="user-name">{{ user.userName }}</h3>
+        <p><strong>Date Joined:</strong> {{ user.create_at | date: 'medium' }}</p>
+      </div>
+      <button 
+        class="delete-btn" 
+        (click)="deleteUser(user.id); $event.stopPropagation()">
+        Delete
+      </button>
+    </div>
+  }
 </div>
-}

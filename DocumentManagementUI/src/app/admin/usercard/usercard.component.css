@@ -1,46 +1,72 @@
+/* Container for all user cards */
+.user-card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  padding: 16px;
+}
+
+/* Individual card styling */
 .user-card {
   background: linear-gradient(135deg, #1e3c72, #2a5298);
-  color: white;
-  border-radius: 12px;
-  padding: 16px;
-  margin: 12px 0;
+  color: #fff;
+  border-radius: 16px;
+  padding: 18px 20px;
   display: flex;
+  flex-direction: column;
   justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  animation: fadeInUp 0.4s ease forwards;
 }
 
 .user-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  transform: translateY(-4px) scale(1.02);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
 }
 
 .user-info h3 {
   margin: 0;
   font-size: 1.4rem;
-  background: linear-gradient(90deg, #00c6ff, #0072ff);
+  font-weight: 600;
+  background: linear-gradient(90deg, #00f2fe, #4facfe);
+  -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 .user-info p {
-  margin: 4px 0;
+  margin: 6px 0 0;
   font-size: 0.95rem;
-  opacity: 0.9;
+  opacity: 0.85;
 }
 
 .delete-btn {
   background: linear-gradient(90deg, #ff4e50, #f53d3d);
   border: none;
-  padding: 8px 14px;
+  padding: 8px 16px;
   border-radius: 8px;
   color: white;
   font-size: 0.9rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: background 0.3s ease, transform 0.2s ease;
+  margin-top: 12px;
+  align-self: flex-start;
 }
 
 .delete-btn:hover {
   background: linear-gradient(90deg, #ff6b6b, #ff4e50);
+  transform: scale(1.05);
+}
+
+/* Fade-in animation */
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

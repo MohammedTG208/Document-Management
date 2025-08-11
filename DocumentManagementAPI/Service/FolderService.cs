@@ -50,7 +50,9 @@ namespace DocumentManagementAPI.Service
 
         public async Task<ICollection<FolderDto>> GetAllFoldersByUserId(int userId)
         {
-            var folders = await folderRepo.GetFoldersByUserId(userId);
+            var role = await userRepo.GetUserById(userId);
+
+            var folders = await folderRepo.GetFoldersByUserId(userId, role!.UserRole.Contains("Admin"));
 
             return mapper.Map<ICollection<FolderDto>>(folders);
         }

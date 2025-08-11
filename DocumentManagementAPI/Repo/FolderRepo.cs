@@ -30,9 +30,9 @@ namespace DocumentManagementAPI.Repo
             await dbContext.Folders.Where(f=> f.Id == folderId).ExecuteDeleteAsync();
         }
 
-        public async Task<List<Folder>> GetFoldersByUserId(int userId)
+        public async Task<List<Folder>> GetFoldersByUserId(int userId, bool isAdmin= false)
         {
-            return await dbContext.Folders.Where(f => f.Users.Id==userId).ToListAsync();
+            return await dbContext.Folders.Where( f => f.Users.Id==userId || isAdmin).ToListAsync();
         }
 
         public async Task<List<Folder>> paganation(int pageNumber , int pageSize,string folderName)

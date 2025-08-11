@@ -14,20 +14,33 @@ export class AuthService {
 
   login(credentials: { userName: string | null; password: string | null }) {
 
-    return this.http.post(this.apiUrl.apiUrl + '/api/v1/Auth/login', credentials, { responseType:'text' })
+    return this.http.post(this.apiUrl.apiUrl + '/api/v1/Auth/login', credentials, { responseType: 'text', observe: 'response' })
   }
 
 
   register(register: { username: string | null; password: string | null; }) {
-    return this.http.post(this.apiUrl.apiUrl + '/api/v1/Auth/register', register, { responseType:'text' });
+    return this.http.post(this.apiUrl.apiUrl + '/api/v1/Auth/register', register, { responseType: 'text' });
+  }
+
+  adminLogin(credentials: { userName: string | null; password: string | null }) {
+    return this.http.post(this.apiUrl.apiUrl + '/api/v2/AdminAuth/login/admin', credentials, { responseType: 'text', observe: 'response' })
   }
 
   // This BehaviorSubject holds the login status of the user
   private loginStatus = new BehaviorSubject<boolean>(!!getToken());
   loginStatus$ = this.loginStatus.asObservable();
-
+  // This method is used to set the login status of the user
   setLoginStatus(status: boolean) {
     this.loginStatus.next(status);
+  }
+
+  // This method is used to check if the Admin is logged in
+  private adminLoginStatus = new BehaviorSubject<boolean>(!!this.getUserInfo());
+  adminLoginStatus$ = this.adminLoginStatus.asObservable();
+
+  // This method is used to set the Admin login status
+  setAdminLoginStatus(status: boolean) {
+    this.adminLoginStatus.next(status);
   }
 
   logout() {
@@ -36,9 +49,9 @@ export class AuthService {
   }
 
   getUserInfo() {
-    return getToken(); 
+    return getToken();
   }
-  
+
 }
 
 export function ValidationTwoInput(input1: string, input2: string): ValidatorFn {
@@ -65,10 +78,10 @@ export function getToken(): { username: string; id: string; role: string; jwt: s
     const username = decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name"];
     const id = decoded["http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier"];
     const role = decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
-    const exp=decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/expired"];
+    const exp = decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/expired"];
     const jwt = token;
 
-    return { username, id, role, jwt,exp };
+    return { username, id, role, jwt, exp };
   }
   return null;
 }

@@ -13,7 +13,11 @@
       </div>
     </li>
 
+
     <li><a href="#">About</a></li>
+    @if (isAdmin) {
+      <li><a routerLink="/admin/all/user">All Users</a></li>
+    }
     <li><a href="#contact">Contact</a></li>
     <li><a routerLink="/profile">Profile</a></li>
   </ul>
