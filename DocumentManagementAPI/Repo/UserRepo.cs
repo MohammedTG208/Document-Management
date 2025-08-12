@@ -14,7 +14,7 @@ namespace DocumentManagementAPI.Repo
 
         public async Task<List<string>> GetAllUsersName()
         {
-            return await dbContext.Users.Select(u=> u.UserName).ToListAsync();
+            return await dbContext.Users.Select(u=> u.UserName ).ToListAsync();
         }
 
         public async Task SaveMoreThanOneUsers(List<DocumentManagement.Data.Models.User> users)
@@ -23,9 +23,10 @@ namespace DocumentManagementAPI.Repo
            await dbContext.SaveChangesAsync();
         }
 
-        public async Task<int> DeleteUserByIdAndNotAdmin(int userId)
+        public async Task DeleteUserByIdAndNotAdmin(DocumentManagement.Data.Models.User user)
         {
-            return await dbContext.Users.Where(u=> u.Id == userId && u.UserRole!="Admin").ExecuteDeleteAsync();
+            dbContext.Users.Remove(user);
+            await dbContext.SaveChangesAsync();
         }
 
         public async Task<DocumentManagement.Data.Models.User?> GetUserById(int userId)
@@ -44,7 +45,7 @@ namespace DocumentManagementAPI.Repo
 
         public async Task<List<DocumentManagement.Data.Models.User>> Paganation(int pageNumber, int pageSize)
         {
-            return await dbContext.Users
+            return await dbContext.Users.Where(u=> u.UserRole != "Admin")
                 .Skip(pageSize * (pageNumber-1))
                 .Take(pageSize)
                 .ToListAsync();

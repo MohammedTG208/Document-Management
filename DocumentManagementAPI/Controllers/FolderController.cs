@@ -54,7 +54,7 @@ namespace DocumentManagementAPI.Controllers
 
         [HttpGet("search/{folderName}")]
 
-        public async Task<(IEnumerable<FolderDto>, DocumentManagementAPI.Paging.Page)> SearchByName(string folderName, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+        public async Task<(IEnumerable<Object>, DocumentManagementAPI.Paging.Page)> SearchByName(string folderName, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
             return await folderService.SearchByFolderName(folderName, pageNumber, pageSize);
         }

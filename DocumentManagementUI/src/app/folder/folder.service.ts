@@ -46,9 +46,8 @@ export class FolderService {
   }
 
   searchFolders(searchTerm: string) {
-    return this.http.get<MyData>(`${this.baseUrl.apiUrl}/api/v1/Folder/search/`, {
-      headers: this.header,
-      params: new HttpParams().set('searchTerm', searchTerm)
+    return this.http.get<MyData>(`${this.baseUrl.apiUrl}/api/v1/Folder/search/`+searchTerm, {
+      headers: this.header
     });
   }
   

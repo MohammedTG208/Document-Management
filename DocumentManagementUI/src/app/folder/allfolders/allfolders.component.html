@@ -1,21 +1,21 @@
 <div class="folder-container">
   <!-- Search Input -->
   <div class="search-container">
-    <form [formGroup]="searchForm" (ngSubmit)="onSearch()">
         <input
       type="text"
       class="search-input"
       placeholder="Search folders..."
-      formControlName="txtSearch"
+      [(ngModel)]="searchTerm"
+      (ngModelChange)="onSearch()"
+      
     />
-    </form>
   </div>
 
   <!-- Folder List -->
-<div class="folders-list" *ngIf="folders().length > 0">
+<div class="folders-list" *ngIf="filteredFolders.length > 0">
   <h3>All Folders</h3>
 
-  <div *ngFor="let folder of folders()" (click)="goToDocuments(folder.id)" class="folder-item">
+  <div *ngFor="let folder of filteredFolders" (click)="goToDocuments(folder.id)" class="folder-item">
     <div class="folder-info">
       <span class="folder-name">{{ folder.name }}</span>
       <span class="folder-user">Created by: {{ folder.userName }}</span>
@@ -25,7 +25,7 @@
 
 
   <!-- No Folders -->
-  <div *ngIf="folders().length === 0" class="no-results">
+  <div *ngIf="filteredFolders.length === 0" class="no-results">
     No folders found.
   </div>
 </div>

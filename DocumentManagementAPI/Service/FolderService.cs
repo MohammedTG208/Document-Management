@@ -57,17 +57,16 @@ namespace DocumentManagementAPI.Service
             return mapper.Map<ICollection<FolderDto>>(folders);
         }
 
-        public async Task<(IEnumerable<FolderDto>, Page)> SearchByFolderName(string folderName, int pageNumber = 1, int pageSize = 10)
+        public async Task<(IEnumerable<Object>, Page)> SearchByFolderName(string folderName, int pageNumber = 1, int pageSize = 10)
         {
 
             var totalCount = await folderRepo.CountFolders();
 
-            var folders = await folderRepo.paganation(pageNumber, pageSize, folderName);
+            var folders = await folderRepo.Pagination(pageNumber, pageSize, folderName);
 
-            var folderDtos = mapper.Map<IEnumerable<FolderDto>>(folders);
             var page = new Page(pageSize, pageNumber, totalCount);
 
-            return (folderDtos, page);
+            return (folders, page);
         }
 
         public async Task updateFolderStatus(int folderId, bool ispublic)

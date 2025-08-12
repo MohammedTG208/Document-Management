@@ -4,7 +4,6 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { FolderService } from './folder.service';
 import { switchMap } from 'rxjs/operators';
 import { FolderDialogComponent } from "./folder-dialog/folder-dialog.component";
-import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-folder',

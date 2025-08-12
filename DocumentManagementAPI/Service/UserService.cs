@@ -50,20 +50,21 @@ namespace DocumentManagementAPI.Service
 
         public async Task<string> DeleteUserById(int userId, int adminId)
         {
-            var admin = await userRepo.GetAdminByIdAndRole(adminId,"Admin");
-            if (admin == null)
+            var admin = await userRepo.GetUserById(adminId);
+
+            if (admin == null || admin.UserRole != "Admin")
             {
                 throw new UnauthorizedException("You dont have access to delete Users");
             }
 
-            var howManyUserDelete = await userRepo.DeleteUserByIdAndNotAdmin(userId);
-            
-            if (howManyUserDelete == 0)
+           var checkFromUser = await userRepo.GetUserById(userId) ?? throw new NotFoundException("User not found by this id: " + userId);
+
+            if (checkFromUser.UserRole == "Admin")
             {
-                throw new NotFoundException("user not found by this id: " + userId);
+                throw new UnauthorizedException("You cannot delete this user, because he is an admin");
             }
 
-            return "Delete user with this id: " + userId +" also this how many user deleted : "+howManyUserDelete;
+            return "Delete user with this id: " + userId;
 
         }
 
