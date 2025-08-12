@@ -4,6 +4,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { FolderService } from './folder.service';
 import { switchMap } from 'rxjs/operators';
 import { FolderDialogComponent } from "./folder-dialog/folder-dialog.component";
+import { getToken } from '../Auth/authService';
 
 @Component({
   selector: 'app-folder',
@@ -13,8 +14,7 @@ import { FolderDialogComponent } from "./folder-dialog/folder-dialog.component";
   styleUrl: './folder.component.css'
 })
 export class FolderComponent {
-
-
+  isAdmin= getToken()?.role === 'Admin';
   private folderService = inject(FolderService);
 
   folderForm = new FormGroup({

@@ -9,7 +9,7 @@
       <a href="javascript:void(0)" class="dropbtn">Folders ▼</a>
       <div class="dropdown-content">
         <a routerLink="folders">All Folders</a>
-        <a routerLink="folder">My Folder</a>
+        <a routerLink="folder">{{isAdmin ? "Delete Folder" : "My Folder"}}</a>
       </div>
     </li>
 

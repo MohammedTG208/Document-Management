@@ -23,6 +23,6 @@ namespace DocumentManagement.Data.Models
 
         public DateTime created_at { get; set; } = DateTime.UtcNow;
         [JsonIgnore]
-        public ICollection<Document>? Documents { get; set; } = new List<Document>();
+        public ICollection<Document> Documents { get; set; } = new List<Document>();
     }
 }

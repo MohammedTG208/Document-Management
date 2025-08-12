@@ -17,7 +17,7 @@ namespace DocumentManagementAPI.Repo
                 .FirstOrDefaultAsync(f => f.Id == folderId);
         }
 
-        public async Task<Folder?> GetFolderByUserIdAndFolderId(int folderId, int userId , bool isAdmin = false)
+        public async Task<Folder?> GetFolderByUserIdAndFolderId(int folderId, int userId, bool isAdmin = false)
         {
             return await dbContext.Folders.FirstOrDefaultAsync(fu => fu.UserId == userId || isAdmin && fu.Id == folderId);
         }
@@ -27,7 +27,32 @@ namespace DocumentManagementAPI.Repo
 
         public async Task DeleteFolder(int folderId, bool isAdmin = false)
         {
-            await dbContext.Folders.Where(f => f.Id == folderId || isAdmin).ExecuteDeleteAsync();
+
+            var folder = await dbContext.Folders
+                .Include(f => f.Documents)
+                    .ThenInclude(d => d.Messages)
+                .FirstOrDefaultAsync(f => f.Id == folderId);
+
+            if (folder != null)
+            {
+                if (folder.Documents != null)
+                {
+                    foreach (var document in folder.Documents)
+                    {
+                        if (document.Messages != null)
+                        {
+                            dbContext.Messages.RemoveRange(document.Messages);
+                        }
+                    }
+                    dbContext.Documents.RemoveRange(folder.Documents);
+                }
+
+                dbContext.Folders.Remove(folder);
+
+                await dbContext.SaveChangesAsync();
+            }
+
+
         }
 
         public async Task<List<Folder>> GetFoldersByUserId(int userId, bool isAdmin = false)
@@ -39,7 +64,7 @@ namespace DocumentManagementAPI.Repo
         {
             return await dbContext.Folders
                 .Where(f => f.Name.Contains(folderName) && f.isPublic)
-                .Select(f => (object) new { f.Name, f.Users.UserName })
+                .Select(f => (object)new { f.Name, f.Users.UserName })
                 .Skip(pageSize * (pageNumber - 1))
                 .Take(pageSize)
                 .ToListAsync();

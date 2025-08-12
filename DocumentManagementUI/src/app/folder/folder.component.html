@@ -1,11 +1,14 @@
 <div class="folder-container">
-  <!-- Add Button -->
+  @if (!isAdmin) {
+    <!-- Add Button -->
   <button class="add-button" (click)="openDialog()">
     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
       <line x1="12" y1="5" x2="12" y2="19"></line>
       <line x1="5" y1="12" x2="19" y2="12"></line>
     </svg>
   </button>
+  }
+  
 
   <!-- Dialog -->
   <div class="dialog-backdrop" *ngIf="showDialog" (click)="onBackdropClick($event)">
@@ -52,7 +55,7 @@
 
   <!-- Display created folders -->
   <div class="folders-list" *ngIf="folders().length > 0">
-    <h3>Your Folders</h3>
+    <h3>{{isAdmin ? "Delete Folder":"Your Folders"}}</h3>
     <div *ngFor="let folder of folders()">
       <div class="folder-item" (click)="goToDocuments(folder.id)">
         <div class="folder-info">
@@ -63,13 +66,15 @@
         </div>
 
         <div class="folder-actions" (click)="$event.stopPropagation()">
-          <!-- Edit Button -->
+          @if (!isAdmin) {
+            <!-- Edit Button -->
           <button class="edit-button" (click)="editFolder({id: folder.id, status: folder.isPublic, name: folder.name})">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <path d="M12 20h9" />
               <path d="M16.5 3.5a2.121 2.121 0 1 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
             </svg>
           </button>
+          }
 
           <!-- Delete Button -->
           <button class="delete-button" (click)="deleteFolder(folder.id)">
