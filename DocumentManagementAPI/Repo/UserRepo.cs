@@ -84,12 +84,12 @@ namespace DocumentManagementAPI.Repo
 
         public async Task<int> CountAllUsers()
         {
-            return await dbContext.Users.CountAsync();
+            return await dbContext.Users.Where(u => u.UserRole == "Customer").CountAsync();
         }
 
         public async Task<List<DocumentManagement.Data.Models.User>> Paganation(int pageNumber, int pageSize)
         {
-            return await dbContext.Users.Where(u => u.UserRole != "Admin")
+            return await dbContext.Users.Where(u => u.UserRole == "Customer")
                 .Skip(pageSize * (pageNumber - 1))
                 .Take(pageSize)
                 .ToListAsync();

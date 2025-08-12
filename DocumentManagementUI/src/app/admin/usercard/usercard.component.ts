@@ -11,33 +11,58 @@ import { Router } from '@angular/router';
   styleUrl: './usercard.component.css'
 })
 export class UsercardComponent implements OnInit {
-  users: any;
+  users: any[]=[];
   private usercardservice = inject(UsercardserviceService);
+  pageNumber = 1;
+  pageSize = 10;
+  totalPages = 1;
 
   deleteUser(userId: number) {
-    const isAproved = confirm('Are you sure you want to delete this user?');
-    if (isAproved) {
-      this.usercardservice.deleteUser(+userId).pipe(tap(this.users = this.users.filter((user: any) => user.id !== userId))).subscribe(
-        {
-          next: (response) => {
-            console.log('User deleted successfully:', response);
-          },
-          error: (error) => {
-            console.error('Error deleting user:', error);
-          }
+    const isApproved = confirm('Are you sure you want to delete this user?');
+    if (isApproved) {
+      this.usercardservice.deleteUser(userId).pipe(
+        tap(() => {
+          this.loadUsers();
+          console.log('User deleted successfully');
+        })
+      ).subscribe({
+        next: (response) => {
+          console.log('User deleted successfully:', response);
+        },
+        error: (error) => {
+          console.error('Error deleting user:', error);
         }
-      );
+      });
     }
   }
 
-  ngOnInit(): void {
-    this.usercardservice.getAllUsers().subscribe({
+  loadUsers() {
+    this.usercardservice.getAllUsers(this.pageSize, this.pageNumber).subscribe({
       next: (response) => {
         this.users = response.item1;
+        this.totalPages = response.item2.totalPageCount;
       },
       error: (error) => {
         console.error('Error fetching users:', error);
       }
     });
+  }
+
+  ngOnInit(): void {
+    this.loadUsers();
+  }
+
+  nextPage() {
+    if (this.pageNumber < this.totalPages) {
+      this.pageNumber++;
+      this.loadUsers();
+    }
+  }
+
+  prevPage() {
+    if (this.pageNumber > 1) {
+      this.pageNumber--;
+      this.loadUsers();
+    }
   }
 }

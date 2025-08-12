@@ -58,6 +58,42 @@
   background: linear-gradient(90deg, #ff6b6b, #ff4e50);
   transform: scale(1.05);
 }
+.pagination-controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.pagination-controls button {
+  background-color: #2a5298;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 4px 8px rgba(42, 82, 152, 0.4);
+}
+
+.pagination-controls button:hover:not(:disabled) {
+  background-color: #4facfe;
+  transform: scale(1.05);
+}
+
+.pagination-controls button:disabled {
+  background-color: #a0aec0; 
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.pagination-controls span {
+  font-weight: 600;
+  color: #2a5298;
+}
+
 
 /* Fade-in animation */
 @keyframes fadeInUp {
