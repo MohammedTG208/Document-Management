@@ -17,17 +17,17 @@ namespace DocumentManagementAPI.Repo
                 .FirstOrDefaultAsync(f => f.Id == folderId);
         }
 
-        public async Task<Folder?> GetFolderByUserIdAndFolderId(int folderId, int userId)
+        public async Task<Folder?> GetFolderByUserIdAndFolderId(int folderId, int userId , bool isAdmin = false)
         {
-            return await dbContext.Folders.FirstOrDefaultAsync(fu => fu.UserId == userId && fu.Id == folderId);
+            return await dbContext.Folders.FirstOrDefaultAsync(fu => fu.UserId == userId || isAdmin && fu.Id == folderId);
         }
 
 
 
 
-        public async Task DeleteFolder(int folderId)
+        public async Task DeleteFolder(int folderId, bool isAdmin = false)
         {
-            await dbContext.Folders.Where(f => f.Id == folderId).ExecuteDeleteAsync();
+            await dbContext.Folders.Where(f => f.Id == folderId || isAdmin).ExecuteDeleteAsync();
         }
 
         public async Task<List<Folder>> GetFoldersByUserId(int userId, bool isAdmin = false)

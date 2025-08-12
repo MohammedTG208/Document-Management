@@ -33,9 +33,9 @@ namespace DocumentManagementAPI.Repo
         {
             return await dbContext.Users.Where(u => u.Id == userId).FirstOrDefaultAsync();
         }
-        public async Task<DocumentManagement.Data.Models.User?> GetUserByIdAndInclodFolderAsync(int userId)
+        public async Task<DocumentManagement.Data.Models.User?> GetUserByIdAndInclodFolderAsync(int userId,bool isAdmin= false)
         {
-            return await dbContext.Users.Include(u=>u.Folders).FirstOrDefaultAsync(u=> u.Id==userId);
+            return await dbContext.Users.Include(u=>u.Folders).FirstOrDefaultAsync(u=> isAdmin || u.Id==userId);
         }
 
         public async Task<int> CountAllUsers()

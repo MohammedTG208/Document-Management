@@ -26,8 +26,6 @@ export class CradComponent {
   @Input() title!: string;
   @Input() date!: string;
   @Input() uploadedBy!: string;
-  //@Output() cardClick = new EventEmitter();
-  // here i can add any object or any data type but in this case i am using number type because // i am passing id of the card to the parent component as number type 
   cardClick = output<number>();
   dummy_data_doc = DUMMY_DATA_DOCUMENT;
   @Input() id!: number;

@@ -15,16 +15,19 @@ export class UsercardComponent implements OnInit {
   private usercardservice = inject(UsercardserviceService);
 
   deleteUser(userId: number) {
-    this.usercardservice.deleteUser(+userId).pipe(tap(this.users = this.users.filter((user: any) => user.id !== userId))).subscribe(
-      {
-        next: (response) => {
-          console.log('User deleted successfully:', response);
-        },
-        error: (error) => {
-          console.error('Error deleting user:', error);
+    const isAproved = confirm('Are you sure you want to delete this user?');
+    if (isAproved) {
+      this.usercardservice.deleteUser(+userId).pipe(tap(this.users = this.users.filter((user: any) => user.id !== userId))).subscribe(
+        {
+          next: (response) => {
+            console.log('User deleted successfully:', response);
+          },
+          error: (error) => {
+            console.error('Error deleting user:', error);
+          }
         }
-      }
-    );
+      );
+    }
   }
 
   ngOnInit(): void {

@@ -10,7 +10,7 @@ namespace DocumentManagementAPI.Repo
         Task SaveMoreThanOneUsers(List<DocumentManagement.Data.Models.User> users);
         Task DeleteUserByIdAndNotAdmin(DocumentManagement.Data.Models.User user);
         Task<DocumentManagement.Data.Models.User?> GetUserById(int userId);
-        Task<DocumentManagement.Data.Models.User?> GetUserByIdAndInclodFolderAsync(int userId);
+        Task<DocumentManagement.Data.Models.User?> GetUserByIdAndInclodFolderAsync(int userId, bool isAdmin = false);
         Task<int> CountAllUsers();
         Task<List<DocumentManagement.Data.Models.User>> Paganation(int pageNumber, int pageSize);
         Task<bool> IsUsernameTaken(string userName);

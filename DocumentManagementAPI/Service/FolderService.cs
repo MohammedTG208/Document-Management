@@ -26,7 +26,8 @@ namespace DocumentManagementAPI.Service
 
         public async Task ChangeFolderName(int folderId, int userId, ChangeFolderNameDto update)
         {
-            var folder = await folderRepo.GetFolderByUserIdAndFolderId(folderId, userId);
+            var user = await userRepo.GetUserById(userId);
+            var folder = await folderRepo.GetFolderByUserIdAndFolderId(folderId, userId, user!.UserRole.Contains("Admin"));
 
             if (folder == null)
             {
@@ -41,10 +42,29 @@ namespace DocumentManagementAPI.Service
 
         public async Task DeleteFolder(int folderId, int userId)
         {
-            var user = await userRepo.GetUserByIdAndInclodFolderAsync(userId);
-            if (!user.Folders.Any(f => f.Id == folderId)) throw new NotFoundException("This folder not found");
-            if (user.Id != userId && !user.Folders.Any(s => s.Id == folderId)) throw new Exception("you can not delete this folder");
-            await folderRepo.DeleteFolder(folderId);
+            try
+            {
+                var user = await userRepo.GetUserByIdAndInclodFolderAsync(userId);
+                if (user == null)
+                    throw new NotFoundException("User not found");
+
+                bool isAdmin = user.UserRole.Contains("Admin");
+
+                if (!isAdmin)
+                {
+                    bool ownsFolder = user.Folders.Any(f => f.Id == folderId);
+                    if (!ownsFolder)
+                        throw new UnauthorizedAccessException("You cannot delete this folder");
+                }
+
+                await folderRepo.DeleteFolder(folderId, isAdmin);
+
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, "Error deleting folder with ID {FolderId} for user {UserId}", folderId, userId);
+                throw new BadRequestException("Failed to delete folder: " + ex.Message);
+            }
 
         }
 
@@ -80,7 +100,7 @@ namespace DocumentManagementAPI.Service
 
         public async Task<ICollection<Object>> GetAllFolders()
         {
-           var folders = await folderRepo.GetAllFolders();
+            var folders = await folderRepo.GetAllFolders();
             return folders.Cast<Object>().ToList();
         }
     }
