@@ -4,16 +4,16 @@
   </div>
 
   <label>First Name</label>
-  <div class="info-text">{{ profile.firstName }}</div>
+  <div class="info-text">{{ profile?.firstName }}</div>
 
   <label>Last Name</label>
-  <div class="info-text">{{ profile.lastName }}</div>
+  <div class="info-text">{{ profile?.lastName }}</div>
 
   <label>Email</label>
-  <div class="info-text">{{ profile.email }}</div>
+  <div class="info-text">{{ profile?.email }}</div>
 
   <label>Phone Number</label>
-  <div class="info-text">{{ profile.phoneNumber }}</div>
+  <div class="info-text">{{ profile?.phoneNumber }}</div>
 
   <button (click)="goToEdit()">Edit Profile</button>
 </section>

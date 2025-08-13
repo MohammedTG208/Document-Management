@@ -1,44 +1,65 @@
+/* Container for cards */
+.cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px; /* small gap between cards */
+  justify-content: center;
+  
+}
+
+/* Card styling */
 .document-card {
   background-color: #ffffff;
   border-radius: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 24px;
-  max-width: 360px;
-  margin: 20px auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  padding: 20px;
+  width: 100%;
+  max-width: 400px; 
+  margin: 8px auto; 
   text-align: left;
   font-family: Arial, sans-serif;
-  transition: transform 0.2s ease;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-  .document-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-  }
+.document-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
 
+/* Title */
 .document-title {
-  font-size: 1.5rem;
-  margin-bottom: 12px;
+  font-size: 1.4rem;
+  margin-bottom: 10px;
   color: #1e3c72;
+  font-weight: 600;
+  line-height: 1.3;
 }
 
+/* Metadata */
 .document-date,
 .document-user {
-  font-size: 0.95rem;
-  color: #555;
-  margin-bottom: 8px;
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 6px;
 }
 
+/* Button */
 .document-btn {
-  display: block;
+  display: inline-block;
   width: 100%;
-  margin-top: 16px;
-  padding: 10px 0;
+  margin-top: 14px;
+  padding: 12px 0;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   background: linear-gradient(90deg, #00c6ff, #0072ff);
   color: white;
   font-size: 1rem;
-  font-weight: bold;
+  font-weight: 600;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.document-btn:hover {
+  background: linear-gradient(90deg, #00d4ff, #0059ff);
+  transform: scale(1.02);
 }

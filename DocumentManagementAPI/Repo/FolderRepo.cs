@@ -1,4 +1,5 @@
 ﻿using DocumentManagement.Data.Models;
+using DocumentManagementAPI.Dtos.FolderDto;
 using Microsoft.EntityFrameworkCore;
 
 namespace DocumentManagementAPI.Repo
@@ -97,6 +98,16 @@ namespace DocumentManagementAPI.Repo
             return await dbContext.Folders.Include(f => f.Users).Where(f => f.isPublic == true)
                  .Select(f => new { f.Id, f.Name, UserName = f.Users.UserName })
                  .ToListAsync<object>();
+        }
+
+        public async Task<ICollection<Object>> GetFirstThreeFolders()
+        {
+            return await dbContext.Folders
+                .Include(f => f.Users)
+                .Where(f => f.isPublic == true)
+                .Select(f => new { f.Id, f.Name, UserName = f.Users.UserName, f.created_at})
+                .Take(3)
+                .ToListAsync<Object>();
         }
     }
 }

@@ -21,7 +21,7 @@ namespace DocumentManagement.Data.Models
         [Required]
         public bool isPublic { get; set; }=true;
 
-        public DateTime created_at { get; set; } = DateTime.UtcNow;
+        public DateTime created_at { get; set; } = DateTime.Now.ToUniversalTime();
         [JsonIgnore]
         public ICollection<Document> Documents { get; set; } = new List<Document>();
     }

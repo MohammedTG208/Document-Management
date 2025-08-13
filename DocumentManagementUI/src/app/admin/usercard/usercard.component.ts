@@ -22,7 +22,11 @@ export class UsercardComponent implements OnInit {
     if (isApproved) {
       this.usercardservice.deleteUser(userId).pipe(
         tap(() => {
-          this.loadUsers();
+          this.users = this.users.filter(user => user.id !== userId);
+          if (this.users.length === 0 && this.pageNumber > 1) {
+            this.pageNumber--;
+            this.loadUsers(); 
+          }
           console.log('User deleted successfully');
         })
       ).subscribe({

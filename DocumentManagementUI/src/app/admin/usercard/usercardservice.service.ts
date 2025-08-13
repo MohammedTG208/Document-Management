@@ -19,6 +19,6 @@ export class UsercardserviceService {
 
 
   deleteUser(userId: number) {
-    return this.http.delete<any>(`${this.baseUrl}/api/v1/User/delete/${userId}`, { headers: this.header });
+    return this.http.delete(`${this.baseUrl}/api/v1/User/delete/${userId}`, { headers: this.header,responseType: 'text' as 'json' });
   }
 }

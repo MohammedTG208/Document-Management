@@ -103,5 +103,11 @@ namespace DocumentManagementAPI.Service
             var folders = await folderRepo.GetAllFolders();
             return folders.Cast<Object>().ToList();
         }
+
+        public async Task<ICollection<Object>> GetFirstThreeFolders()
+        {
+            var folders = await folderRepo.GetFirstThreeFolders();
+            return folders.Cast<Object>().ToList();
+        }
     }
 }

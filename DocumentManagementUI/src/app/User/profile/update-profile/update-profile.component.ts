@@ -10,7 +10,7 @@ import { ProfileService } from '../../profile.service';
   templateUrl: './update-profile.component.html',
   styleUrl: './update-profile.component.css'
 })
-export class UpdateProfileComponent{
+export class UpdateProfileComponent {
   profile: any[any];
   private router = inject(Router);
   private profileService = inject(ProfileService);
@@ -19,7 +19,7 @@ export class UpdateProfileComponent{
     firstName: new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z]+$')]),
     lastName: new FormControl('', [Validators.required, Validators.pattern('^[A-Za-z]+$')]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    phoneNumber: new FormControl('', [Validators.pattern(/^05\d{8}$/),Validators.required])
+    phoneNumber: new FormControl('', [Validators.pattern(/^05\d{8}$/), Validators.required])
 
   });
 
@@ -27,22 +27,22 @@ export class UpdateProfileComponent{
     // Initialize the form with existing profile data if available
     this.profileService.getProfile().subscribe(profile => {
       this.profile = profile;
-      if(profile){
+      if (profile) {
         this.editForm.patchValue({
-        firstName: profile.firstName,
-        lastName: profile.lastName,
-        email: profile.email,
-        phoneNumber: profile.phoneNumber
-      });
+          firstName: profile.firstName,
+          lastName: profile.lastName,
+          email: profile.email,
+          phoneNumber: profile.phoneNumber
+        });
         this.haveProfile = true;
-      }else{
+      } else {
         this.haveProfile = false;
       }
     });
   }
 
   saveProfile() {
-    if(this.haveProfile){
+    if (this.haveProfile) {
       this.profileService.updateProfile(this.editForm.value).subscribe({
         next: (response) => {
           alert('Profile updated successfully!');
@@ -53,26 +53,26 @@ export class UpdateProfileComponent{
           alert('Failed to update profile. Please try again.');
         }
       });
-    }else{
+    } else {
       this.profileService.addNewProfile(this.editForm.value).subscribe({
-      next: (response) => {
-        alert('Profile added successfully!');
-        this.router.navigate(['/profile']);
-      },
-      error: (error) => {
-        console.error('Error added profile:', error);
-        alert('Failed to added profile. Please try again.');
-      }
-    });
+        next: (response) => {
+          alert('Profile added successfully!');
+          this.router.navigate(['/profile']);
+        },
+        error: (error) => {
+          console.error('Error added profile:', error);
+          alert('Failed to added profile. Please try again.');
+        }
+      });
     }
-    
+
   }
-  
+
   cancelEdit() {
-    if (this.editForm.dirty) {
-      if (confirm('You have unsaved changes. Are you sure you want to cancel?')) {
-        this.router.navigate(['/profile']);
-      }
+
+    if (confirm('You have unsaved changes. Are you sure you want to cancel?')) {
+      this.router.navigate(['/profile']);
     }
+
   }
 }

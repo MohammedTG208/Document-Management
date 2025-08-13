@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CradComponent } from '../crad/crad.component';
 import { CommonModule } from '@angular/common';
 import { ContactComponent } from './contact/contact.component';
 import { DUMMY_DATA_CARD } from '../../../Dummy_Data/Dummy_Data';
+import { CardService } from '../card/card.service';
 
 @Component({
   selector: 'app-home',
@@ -11,24 +12,18 @@ import { DUMMY_DATA_CARD } from '../../../Dummy_Data/Dummy_Data';
   styleUrls: ['./home.component.css', '../app.component.css']
 })
 export class HomeComponent implements OnInit {
-  docInfo = DUMMY_DATA_CARD;
-  islogin = false;
-  username = 'User';
+ folders: any[any] = [];
+ private cardService=inject(CardService);
 
-  ngOnInit(): void {
-    this.checkLocalStorege();
-  }
-  //any name onCardClick077(id: number) will work.
-  selectCard(id: number) {
-    console.log("This card id " + id);
-    // You can add more logic here if needed, like navigating to a detail page.
+  ngOnInit() {
+    this.loadFolders();
   }
 
-  checkLocalStorege() {
-    let message = localStorage.getItem('message');
-    if (message != null) {
-      this.islogin = true;
-      this.username = JSON.parse(message).username;
-    }
+  loadFolders() {
+    this.cardService.getThreeFolders().subscribe((data: any[]) => {
+      this.folders = data;
+    }, error => {
+      console.error('Error fetching folders:', error);
+    });
   }
 }

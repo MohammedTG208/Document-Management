@@ -19,8 +19,8 @@ export class HeaderComponent implements OnInit {
   private router = inject(Router);
 
   ngOnInit(): void {
-    
    this.authService.adminLoginStatus$.subscribe(status => {
+    console.log('status: '+ status)
       this.isAdmin = status;
     });
 

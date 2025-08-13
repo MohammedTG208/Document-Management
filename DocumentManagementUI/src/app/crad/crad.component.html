@@ -1,9 +1,6 @@
 <div class="document-card">
-  <h3 class="document-title">{{title}}</h3>
-  <p class="document-date">📅 Date: {{date | date:'short'}}</p>
-  <p class="document-user">👤 Uploaded by: {{uploadedBy}}</p>
+  <h3 class="document-title">{{folder.name}}</h3>
+  <p class="document-date">📅 Date: {{folder.created_at | date:'short'}}</p>
+  <p class="document-user">👤 Add by: {{folder.userName}}</p>
   <button class="document-btn" (click)="onDisplayClick()">Display</button>
 </div>
-<app-document-dialog-component *ngIf="selectFolderName"
-                               [document]="selectFolderName"
-                               (closed)="onDialogClose()"></app-document-dialog-component>

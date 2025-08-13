@@ -64,5 +64,11 @@ namespace DocumentManagementAPI.Controllers
         {
             return await folderService.GetAllFolders();
         }
+
+        [HttpGet("first-three")]
+        public async Task<ICollection<Object>> GetFirstThreeFolders()
+        {
+            return await folderService.GetFirstThreeFolders();
+        }
     }
 }

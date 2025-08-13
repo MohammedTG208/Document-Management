@@ -35,7 +35,7 @@ export class AuthService {
   }
 
   // This method is used to check if the Admin is logged in
-  private adminLoginStatus = new BehaviorSubject<boolean>(!!this.getUserInfo());
+  private adminLoginStatus = new BehaviorSubject<boolean>(getToken()?.role?.includes('Admin') || false);
   adminLoginStatus$ = this.adminLoginStatus.asObservable();
 
   // This method is used to set the Admin login status
@@ -80,7 +80,7 @@ export function getToken(): { username: string; id: string; role: string; jwt: s
     const role = decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/role"];
     const exp = decoded["http://schemas.microsoft.com/ws/2008/06/identity/claims/expired"];
     const jwt = token;
-
+    
     return { username, id, role, jwt, exp };
   }
   return null;

@@ -15,7 +15,9 @@ namespace __Document_Management_API.IService
         Task ChangeFolderName(int folderId, int userId, ChangeFolderNameDto newFolderName);
         Task<(IEnumerable<Object>, DocumentManagementAPI.Paging.Page)> SearchByFolderName(string folderName, int pageNumber = 1, int pageSize = 10);
         Task updateFolderStatus(int folderId, bool ispublic);
-        
+
         Task<ICollection<Object>> GetAllFolders();
+
+        Task<ICollection<Object>> GetFirstThreeFolders();
     }
 }

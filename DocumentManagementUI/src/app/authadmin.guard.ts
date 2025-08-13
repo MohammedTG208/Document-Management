@@ -5,12 +5,10 @@ import { authGuard } from './auth.guard';
 
 export const authadminGuard: CanActivateFn = (route, state) => {
  const authService = inject(AuthService);
- const isAdmin = authService.getUserInfo()?.role?.includes('Admin');
+ const isAdmin = authService.getUserInfo()?.role?.includes('Admin') || false;
  const router = inject(Router);
-  // Check if the user is an admin
+  
   if (isAdmin) {
-    // If the user is an admin, proceed with the authGuard
-    // This will check if the token is valid and not expired
     if(authGuard(route, state)) {
       return true;
     }else {

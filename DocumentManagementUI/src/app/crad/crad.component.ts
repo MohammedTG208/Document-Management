@@ -1,8 +1,9 @@
-import { Component, Input,output } from '@angular/core';
+import { Component, inject, input, Input, output } from '@angular/core';
 import { DocumentInfoDialogComponentComponent } from '../home/document-info-dialog-component/document-info-dialog-component.component';
 import { DUMMY_DATA_DOCUMENT } from '../../../Dummy_Data/DUMMY_DATA_FOLDERS';
 import { CommonModule } from '@angular/common';
 import { DatePipe } from '@angular/common';
+import { Router } from '@angular/router';
 
 interface Message {
   username: string;
@@ -20,22 +21,12 @@ interface Dummy_Data {
   standalone: true,
   templateUrl: './crad.component.html',
   styleUrl: './crad.component.css',
-  imports: [DocumentInfoDialogComponentComponent, CommonModule, DatePipe]
+  imports: [ CommonModule, DatePipe]
 })
 export class CradComponent {
-  @Input() title!: string;
-  @Input() date!: string;
-  @Input() uploadedBy!: string;
-  cardClick = output<number>();
-  dummy_data_doc = DUMMY_DATA_DOCUMENT;
-  @Input() id!: number;
-  selectFolderName: Dummy_Data | null = null;
-
+  @Input() folder: any;
+  private router = inject(Router);
   onDisplayClick() {
-    this.selectFolderName = this.dummy_data_doc[this.id - 1];
-  }
-
-  onDialogClose() {
-    this.selectFolderName = null;
+    this.router.navigate(['/mydoc', this.folder.id]);
   }
 }
