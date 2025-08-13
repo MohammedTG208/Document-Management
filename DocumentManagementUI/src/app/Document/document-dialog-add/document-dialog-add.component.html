@@ -44,6 +44,9 @@
           @if (formAdd.get('file')?.touched && formAdd.get('file')?.errors?.['required']) {
             <small style="color: red ; font-size: large;">*required</small>
           }
+          @if (formAdd.get('name')?.touched && formAdd.get('name')?.errors?.['pattern']) {
+            <small style="color: red; font-size: large;">enter valid name</small>
+          }
         </div>
 
         <!--  Buttons -->

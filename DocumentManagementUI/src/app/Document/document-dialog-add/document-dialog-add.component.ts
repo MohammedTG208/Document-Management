@@ -21,7 +21,7 @@ export class DocumentDialogAddComponent {
 
   formAdd = new FormGroup({
     file: new FormControl(null, { validators: [Validators.required] }),
-    name: new FormControl('', { validators: [Validators.required, Validators.minLength(4)] })
+    name: new FormControl('', { validators: [Validators.required, Validators.minLength(4),Validators.pattern(/^[a-zA-Z0-9]+$/)] })
   });
   onFileChange(event: any) {
     this.fileSelected=event.target.files[0];

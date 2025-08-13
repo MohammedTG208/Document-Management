@@ -12,6 +12,9 @@
           <input type="text" id="name" name="name" class="input-field" placeholder="Enter folder name"
             formControlName="folderName" />
         </div>
+        @if (FolderUpdateform.controls.folderName.touched && FolderUpdateform.controls.folderName.errors?.["pattern"]) {
+          <small style="color: red;">enter valid name</small>
+        }
 
         <div class="form-group checkbox-group">
           <label class="checkbox-container">

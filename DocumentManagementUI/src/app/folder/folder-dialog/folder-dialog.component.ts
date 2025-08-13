@@ -17,7 +17,7 @@ export class FolderDialogComponent {
   folderUpDateDialogServise = inject(FolderDialogService);
 
   FolderUpdateform = new FormGroup({
-    folderName: new FormControl('', { validators: [Validators.required] }),
+    folderName: new FormControl('', { validators: [Validators.required,Validators.pattern(/^[a-zA-Z0-9]+$/)] }),
     status: new FormControl(false),
   });
 
